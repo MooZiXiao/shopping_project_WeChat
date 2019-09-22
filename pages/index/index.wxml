@@ -1,3 +1,12 @@
 <!-- 搜索跳转开始 -->
 <indexSearch></indexSearch>
 <!-- 搜索跳转结束 -->
+<!-- 轮播图开始 -->
+<view class="indexSwiper">   
+    <swiper autoplay indicator-dots circular>
+        <swiper-item wx:for="{{swiperData}}" wx:key="goods_id">
+            <image mode="widthFix" src="{{item.image_src}}"></image>
+        </swiper-item>
+    </swiper>
+</view>
+<!-- 轮播图结束 -->

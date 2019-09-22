@@ -94,3 +94,35 @@ pages/index/index	.json引入 	.wxml使用
 <!-- 搜索跳转结束 -->
 ```
 
+#### 3.2 轮播图 ####
+
+设置获得轮播图数组，调用接口并将返回的数据进行赋值
+
+```js
+/* 调用主页轮播图的接口 */
+getSwiperData(){
+    wx.request({
+        url: 'https://api.zbztb.cn/api/public/v1/home/swiperdata',
+        success: (res) => {
+            this.setData({
+                swiperData: res.data.message
+            })
+        }
+    })
+},
+onLoad(){
+    this.getSwiperData()
+}
+```
+
+swiper 的坑：swiper默认高度 150px，需设置对应的 rpx
+
+原稿图片的宽 / 原稿图片的高 = 变化后图片的宽 / 变化后图片的高
+
+```wxss
+swiper{
+	// 750 / 340 = 750rpx / ?
+	height: 340rpx;
+}
+```
+
