@@ -6,39 +6,41 @@
 
 ​	|---- components
 
+​			|---- indexSearch（首页搜索）
+
 ​	|---- pages
 
-​		|---- index （首页）
+​			|---- index （首页）
 
-​		|---- category（分类页面 ）
+​			|---- category（分类页面 ）
 
-​		|---- goods_list（商品列表页面 ）
+​			|---- goods_list（商品列表页面 ）
 
-​		|---- goods_detail（商品详情页面) 
+​			|---- goods_detail（商品详情页面) 
 
-​		|---- cart（购物车页面)   
+​			|---- cart（购物车页面)   
 
-​		|---- collect（收藏页面）    
+​			|---- collect（收藏页面）    
 
-​		|---- order（订单页面）
+​			|---- order（订单页面）
 
-​		|---- search（搜索页面）
+​			|---- search（搜索页面）
 
-​		|---- user （个人中心页面）
+​			|---- user （个人中心页面）
 
-​		|---- feedback（意见反馈页面）
+​			|---- feedback（意见反馈页面）
 
-​		|---- login（登录页面） 
+​			|---- login（登录页面） 
 
-​		|---- auth（授权页面）
+​			|---- auth（授权页面）
 
-​		|---- pay（结算页面）
+​			|---- pay（结算页面）
 
 ​	|---- icons
 
 ​	|---- styles
 
- 		|---- iconfont.wxss（字体图标样式）
+​			|---- iconfont.wxss（字体图标样式）
 
 ### 2 自定义 tabBar ###
 
@@ -65,4 +67,30 @@
 ​	]
 
 }
+
+### 3 首页 ###
+
+#### 3.1 搜索 ####
+
+创建 components/indexSearch 组件
+
+```html
+<view class="indexSearch">
+    <navigator url="../search/index">搜索</navigator> 
+</view>
+```
+
+pages/index/index	.json引入 	.wxml使用
+
+```json
+"usingComponents": {
+	"indexSearch": "../../components/indexSearch/index"
+}
+```
+
+```html
+<!-- 搜索跳转开始 -->
+<indexSearch></indexSearch>
+<!-- 搜索跳转结束 -->
+```
 

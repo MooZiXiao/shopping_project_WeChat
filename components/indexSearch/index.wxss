@@ -1,0 +1,16 @@
+/* 首页搜索开始 */
+.indexSearch{
+    padding: 12rpx;
+    background: var(--themeColor);
+    color: #666;
+}
+.indexSearch navigator{
+    display: flex;
+    justify-content: center;
+    height: 50rpx;
+    line-height: 50rpx;
+    background: #fff;
+    font-size: 26rpx;
+    border-radius: 8rpx;
+}
+/* 首页搜索结束 */
