@@ -10,3 +10,10 @@
     </swiper>
 </view>
 <!-- 轮播图结束 -->
+<!-- 导航菜单开始 -->
+<view class="indexNavs">
+    <navigator url="{{item.navigator_url}}" wx:for="{{catitemsData}}" wx:key="name">
+        <image mode="widthFix" src="{{item.image_src}}"></image>
+    </navigator>
+</view>
+<!-- 导航菜单结束 -->

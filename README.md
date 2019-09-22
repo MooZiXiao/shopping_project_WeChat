@@ -2,71 +2,75 @@
 
 ### 1 项目目录结构 ###
 
+```js
 |---- shopping_project_WeChat
 
-​	|---- components
+	|---- components
 
-​			|---- indexSearch（首页搜索）
+		|---- indexSearch（首页搜索）
 
-​	|---- pages
+	|---- pages
 
-​			|---- index （首页）
+		|---- index （首页）
 
-​			|---- category（分类页面 ）
+		|---- category（分类页面 ）
 
-​			|---- goods_list（商品列表页面 ）
+		|---- goods_list（商品列表页面 ）
 
-​			|---- goods_detail（商品详情页面) 
+		|---- goods_detail（商品详情页面) 
 
-​			|---- cart（购物车页面)   
+		|---- cart（购物车页面)   
 
-​			|---- collect（收藏页面）    
+		|---- collect（收藏页面）    
 
-​			|---- order（订单页面）
+		|---- order（订单页面）
 
-​			|---- search（搜索页面）
+		|---- search（搜索页面）
 
-​			|---- user （个人中心页面）
+		|---- user （个人中心页面）
 
-​			|---- feedback（意见反馈页面）
+		|---- feedback（意见反馈页面）
 
-​			|---- login（登录页面） 
+		|---- login（登录页面） 
 
-​			|---- auth（授权页面）
+		|---- auth（授权页面）
 
-​			|---- pay（结算页面）
+		|---- pay（结算页面）
 
-​	|---- icons
+	|---- icons
 
-​	|---- styles
+	|---- styles
 
-​			|---- iconfont.wxss（字体图标样式）
+		|---- iconfont.wxss（字体图标样式）
+```
 
 ### 2 自定义 tabBar ###
 
+```js
 "tabBar":{
 
-​    "color": "#666",	// 字体颜色
+    "color": "#666",	// 字体颜色
 
-​    "selectedColor": "#cf3a50",	// 激活后的字体颜色
+    "selectedColor": "#cf3a50",	// 激活后的字体颜色
 
-​    "list":[
+    "list":[
 
-​      {
+      {
 
-​        "pagePath": "pages/index/index",	// 页面地址
+        "pagePath": "pages/index/index",	// 页面地址
 
-​        "text": "首页",			// 标签页的标题
+        "text": "首页",			// 标签页的标题
 
-​        "iconPath": "icons/tab_home_nor@3x.png",	// 图标路径
+        "iconPath": "icons/tab_home_nor@3x.png",	// 图标路径
 
-​        "selectedIconPath": "icons/tab_home_fill@3x.png"	// 激活后的图标路径
+        "selectedIconPath": "icons/tab_home_fill@3x.png"	// 激活后的图标路径
 
-​      }, ……
+      }, ……
 
-​	]
+	]
 
 }
+```
 
 ### 3 首页 ###
 
@@ -119,10 +123,14 @@ swiper 的坑：swiper默认高度 150px，需设置对应的 rpx
 
 原稿图片的宽 / 原稿图片的高 = 变化后图片的宽 / 变化后图片的高
 
-```wxss
+```css
 swiper{
 	// 750 / 340 = 750rpx / ?
 	height: 340rpx;
 }
 ```
+
+#### 3.3 主页导航 ####
+
+设置获得导航菜单数组，调用接口并将返回的数据进行赋值，与调用轮播图接口一致
 
