@@ -2,8 +2,6 @@
 
 ### 1 项目目录结构 ###
 
-| ----------------------------- -----------------------------|
-
 |---- shopping_project_WeChat
 
 ​	|---- components
@@ -42,5 +40,29 @@
 
  		|---- iconfont.wxss（字体图标样式）
 
-|  ----------------------------- ----------------------------- |
+### 2 自定义 tabBar ###
+
+"tabBar":{
+
+​    "color": "#666",	// 字体颜色
+
+​    "selectedColor": "#cf3a50",	// 激活后的字体颜色
+
+​    "list":[
+
+​      {
+
+​        "pagePath": "pages/index/index",	// 页面地址
+
+​        "text": "首页",			// 标签页的标题
+
+​        "iconPath": "icons/tab_home_nor@3x.png",	// 图标路径
+
+​        "selectedIconPath": "icons/tab_home_fill@3x.png"	// 激活后的图标路径
+
+​      }, ……
+
+​	]
+
+}
 
