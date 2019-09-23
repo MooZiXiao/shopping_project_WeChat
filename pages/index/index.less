@@ -14,3 +14,30 @@
     }
   }
 /* 导航菜单结束 */
+/* 楼层开始 */
+.indexFloorWrap {
+    .indexFloor {
+        .indexFloorTitle {
+        }
+    
+        .indexFloorItem {
+            overflow: hidden;
+            border-right: solid 5rpx #fff;
+            navigator {
+                float: left;
+                width: 33.33%;
+                border-left: solid 5rpx #fff;
+                &:nth-last-child(-n+4){
+                    height: 750rpx / 3 * 386 / 232 / 2 - 3rpx;
+                    image{
+                        height: 100%;
+                    }
+                }
+                &:nth-last-child(-n+2){
+                    border-top: solid 5rpx #fff;
+                }
+            }
+        }
+    }
+}
+  /* 楼层结束 */

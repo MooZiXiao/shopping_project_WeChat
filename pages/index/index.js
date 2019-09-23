@@ -7,8 +7,9 @@ Page({
     /* 轮播图数据 */
     swiperData: [],
     /* 导航菜单 */
-    catitemsData: []
-
+    catitemsData: [],
+    /* 楼层菜单 */
+    floorData: []
   },
   /* 调用主页轮播图的接口 */
   getSwiperData(){
@@ -34,8 +35,21 @@ Page({
       }
     })
   },
+  /* 调用楼层的接口 */
+  getFloorData(){
+    wx.request({
+      url: 'https://api.zbztb.cn/api/public/v1/home/floordata',
+      success: (res) => {
+        console.table(res.data.message)
+        this.setData({
+          floorData: res.data.message
+        })
+      }
+    })
+  },
   onLoad(){
     this.getSwiperData();
-    this.getCatitemsData()
+    this.getCatitemsData();
+    this.getFloorData()
   }
 })

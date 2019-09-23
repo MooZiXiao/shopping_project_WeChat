@@ -12,3 +12,23 @@
   padding: 22rpx 24rpx;
 }
 /* 导航菜单结束 */
+/* 楼层开始 */
+.indexFloorWrap .indexFloor .indexFloorItem {
+  overflow: hidden;
+  border-right: solid 5rpx #fff;
+}
+.indexFloorWrap .indexFloor .indexFloorItem navigator {
+  float: left;
+  width: 33.33%;
+  border-left: solid 5rpx #fff;
+}
+.indexFloorWrap .indexFloor .indexFloorItem navigator:nth-last-child(-n+4) {
+  height: 204.97413793rpx;
+}
+.indexFloorWrap .indexFloor .indexFloorItem navigator:nth-last-child(-n+4) image {
+  height: 100%;
+}
+.indexFloorWrap .indexFloor .indexFloorItem navigator:nth-last-child(-n+2) {
+  border-top: solid 5rpx #fff;
+}
+/* 楼层结束 */

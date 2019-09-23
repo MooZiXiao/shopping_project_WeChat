@@ -134,3 +134,54 @@ swiper{
 
 设置获得导航菜单数组，调用接口并将返回的数据进行赋值，与调用轮播图接口一致
 
+#### 3.4 楼层 ####
+
+同样地设置获得楼层的数组，调用接口将返回的数据赋值，分析返回的数据，通过双层循环（wx:for）实现页面结构
+
+```html
+<view class="indexFloorWrap">
+    <view class="indexFloor" wx:for="{{floorData}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1">
+        <view class="indexFloorTitle">
+            <image mode="widthFix" src="{{item1.floor_title.image_src}}"></image>
+        </view>
+        <view class="indexFloorItem">
+            <navigator wx:for="{{item1.product_list}}" wx:for-item="item2" wx:for-index="index2" wx:key="name">
+                <image mode="{{index2 === 0 ? 'widthFix' : 'scaleToFill'}}" src="{{item2.image_src}}"></image>
+            </navigator>
+        </view>
+    </view>
+</view>
+```
+
+需注意的是，设置样式时，需对图片设置自适应屏幕
+
+公式 -- 原稿图片的宽 / 原稿图片的高 = 变化后图片的宽 / 变化后图片的高
+
+楼层图片，一张占用着整个屏幕宽的 1/3，右边图片的高度是左边图片的 2 倍
+
+则
+
+变化后图片的高 =  原稿图片的高  / 2 * 变化后图片的宽 / 3  / 原稿图片的宽 
+
+```css
+// 图片容器
+.indexFloorItem {
+    overflow: hidden;
+    border-right: solid 5rpx #fff;
+    navigator {
+        float: left;
+        width: 33.33%;
+        border-left: solid 5rpx #fff;
+        &:nth-last-child(-n+4){
+            height: 750rpx / 3 * 386 / 232 / 2;
+            image{
+                height: 100%;
+            }
+        }
+        &:nth-last-child(-n+2){
+            border-top: solid 5rpx #fff;
+        }
+    }
+}
+```
+
