@@ -9,13 +9,13 @@
         </view>
     </scroll-view>
     <!-- 右边 -->
-    <scroll-view scroll-y class="cateContain">
+    <scroll-view scroll-y class="cateContain" scroll-top="{{scrollTop}}">
         <view class='cateContainItem' wx:for="{{cateContent}}" wx:for-index="index1" wx:for-item="item1" wx:key="cat_id">    
             <!-- 标题 -->
             <view class="cateContainItemTitle">/ <text>{{item1.cat_name}}</text> /</view>
             <!-- 内容 -->
             <view class="cateContainItemCon">
-                <navigator wx:for="{{item1.children}}" wx:for-index="index2" wx:for-item="item2" wx:key="cat_id">
+                <navigator wx:for="{{item1.children}}" wx:for-index="index2" wx:for-item="item2" wx:key="cat_id" url="/pages/goods_list/index?cid={{item2.cat_id}}">
                     <image mode="widthFix" src="{{item2.cat_icon}}"></image>
                     <text>{{item2.cat_name}}</text>
                 </navigator>

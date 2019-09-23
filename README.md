@@ -251,3 +251,32 @@ getSwiperData(){
 
 ### 5 分类 ###
 
+分类组件的布局是上（搜索组件）下（左：导航菜单，右：内容）
+
+**设置封装调用分类接口方法，设置变量接收数据**
+
+```js
+ // 封装调用接口方法
+getCateData(){
+    request({url: '/categories'})
+        .then((res) => {
+        // 总数据
+        this.cateData = res.data.message
+        // 左边数据
+        let cateMenu = this.cateData.map(v => { return v.cat_name })
+        // 右边数据
+        let cateContent = this.cateData[0].children
+        console.log(cateContent)
+        // 设置数据
+        this.setData({
+            cateMenu,
+            cateContent
+        })
+        // 设置本地存储总数据
+        wx.setStorageSync('catesData',
+      		{data: this.cateData, time: Date.now()}
+      	)
+    })
+}
+```
+

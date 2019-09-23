@@ -35,11 +35,14 @@
 .cateWrap .cateContain .cateContainItem .cateContainItemTitle {
   padding: 40rpx 0 10rpx;
   text-align: center;
+  transform: skew(0, -3deg);
+  color: var(--themeColor);
 }
 .cateWrap .cateContain .cateContainItem .cateContainItemTitle text {
   padding: 0 30rpx;
   font-size: 30rpx;
-  color: #000;
+  background-color: var(--themeColor);
+  color: #fff;
 }
 .cateWrap .cateContain .cateContainItem .cateContainItemCon {
   overflow: hidden;
