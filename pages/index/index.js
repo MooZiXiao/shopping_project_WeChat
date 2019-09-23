@@ -1,4 +1,5 @@
 // pages/index/index.js
+import {request} from '../../request/index.js';
 Page({
   /**
    * 页面的初始数据
@@ -13,38 +14,29 @@ Page({
   },
   /* 调用主页轮播图的接口 */
   getSwiperData(){
-    wx.request({
-      url: 'https://api.zbztb.cn/api/public/v1/home/swiperdata',
-      success: (res) => {
-        // console.table(res.data.message)
-        this.setData({
-          swiperData: res.data.message
-        })
-      }
+    request({url: '/home/swiperdata'})
+    .then((res) => {
+      this.setData({
+        swiperData: res.data.message
+      })
     })
   },
   /* 调用导航菜单的接口 */
   getCatitemsData(){
-    wx.request({
-      url: 'https://api.zbztb.cn/api/public/v1/home/catitems',
-      success: (res) => {
-        // console.table(res.data.message)
-        this.setData({
-          catitemsData: res.data.message
-        })
-      }
+    request({url: '/home/catitems'})
+    .then((res) => {
+      this.setData({
+        catitemsData: res.data.message
+      })
     })
   },
   /* 调用楼层的接口 */
   getFloorData(){
-    wx.request({
-      url: 'https://api.zbztb.cn/api/public/v1/home/floordata',
-      success: (res) => {
-        console.table(res.data.message)
-        this.setData({
-          floorData: res.data.message
-        })
-      }
+    request({url: '/home/floordata'})
+    .then((res) => {
+      this.setData({
+        floorData: res.data.message
+      })
     })
   },
   onLoad(){

@@ -3,45 +3,28 @@
 ### 1 项目目录结构 ###
 
 ```js
-|---- shopping_project_WeChat
-
-	|---- components
-
-		|---- indexSearch（首页搜索）
-
-	|---- pages
-
-		|---- index （首页）
-
-		|---- category（分类页面 ）
-
-		|---- goods_list（商品列表页面 ）
-
-		|---- goods_detail（商品详情页面) 
-
-		|---- cart（购物车页面)   
-
-		|---- collect（收藏页面）    
-
-		|---- order（订单页面）
-
-		|---- search（搜索页面）
-
-		|---- user （个人中心页面）
-
-		|---- feedback（意见反馈页面）
-
-		|---- login（登录页面） 
-
-		|---- auth（授权页面）
-
-		|---- pay（结算页面）
-
-	|---- icons
-
-	|---- styles
-
-		|---- iconfont.wxss（字体图标样式）
+|--- shopping_project_WeChat
+	 |--- components
+	 |	  |--- indexSearch（首页搜索）
+	 |--- pages
+	 |	  |--- index （首页）
+	 |	  |--- category（分类页面 ）
+	 |	  |--- goods_list（商品列表页面 ）
+	 |	  |--- goods_detail（商品详情页面) 
+	 |	  |--- cart（购物车页面)   
+	 |	  |--- collect（收藏页面）    
+	 |	  |--- order（订单页面）
+	 |	  |--- search（搜索页面）
+	 |	  |--- user （个人中心页面）
+	 |	  |--- feedback（意见反馈页面）
+	 |	  |--- login（登录页面） 
+	 |	  |--- auth（授权页面）
+	 |	  |--- pay（结算页面）
+	 |--- icons
+	 |--- styles
+	 |	  |--- iconfont.wxss（字体图标样式）
+	 |--- request （调用接口封装）
+	 |	  |--- index.js
 ```
 
 ### 2 自定义 tabBar ###
@@ -183,5 +166,86 @@ swiper{
         }
     }
 }
+```
+
+### 4 封装调用接口 ###
+
+**request/index.js**
+
+```js
+export const request = (params) =>　{
+    // params 是请求所需的参数对象
+    // promise + wx.request
+    return new Promise((resolve, reject) => {
+        wx.request({
+            ...params,
+            success: (res) => {
+                resolve(res)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        })
+    })
+}
+```
+
+由于发送的接口路径都有相同的部分，可以提取，设置
+
+加上 loading 效果，由于同时请求多个接口，需对 loading 隐藏进行设置，通过设置 requestTwice （请求的次数）来判断，设置正确显示
+
+```js
+// 同时发送异步请求的次数
+let requestTwice = 0
+
+export const request = (params) => {
+    requestTwice ++
+    // 加载
+    wx.showLoading({
+        title: '数据加载中...',
+        mask: true
+    })
+
+    // promise + 调用
+    return new Promise((resolve, reject) => {
+        // 设置基准路径
+        const baseUrl = 'https://api.zbztb.cn/api/public/v1'
+        wx.request({
+            ...params,
+            // 覆盖url
+            url: baseUrl + params.url,
+            success: (res) => {
+                resolve(res)
+            },
+            fail: (err) => {
+                reject(err)
+            },
+            complete: () => {
+                requestTwice --;
+                requestTwice === 0 && wx.hideLoading()
+            }
+        })
+    })
+}
+```
+
+**使用**
+
+pages/index/index.js
+
+```js
+import {request} from '../../request/index.js';
+
+/* 调用主页轮播图的接口 */
+getSwiperData(){
+    request({url: '/home/swiperdata'})
+    .then((res) => {
+        this.setData({
+            swiperData: res.data.message
+        })
+    })
+}, 
+(其它调用类似)
+... 
 ```
 
