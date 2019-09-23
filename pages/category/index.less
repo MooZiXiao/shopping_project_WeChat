@@ -1,0 +1,54 @@
+.cateWrap{
+    display: flex;
+    height: ~'calc(100vh - 100rpx)';
+    overflow: hidden;
+    /* 左边 */
+    .cateMenu{
+        width: 160rpx;
+        background-color: #eee;
+        .cateMenuItem{
+            height: 80rpx;
+            line-height: 80rpx;
+            text-align: center;
+            border-bottom: solid 1px #c7c4c4;
+        }
+        .active{
+            color: var(--themeColor);
+            background-color: #fff;
+            position: relative;
+            &::before{
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 25%;
+                width: 6rpx;
+                height: 50%;
+                background: currentColor;
+            }
+        }
+    }
+    /* 右边 */
+    .cateContain{
+        flex: 1;
+        .cateContainItem{
+            .cateContainItemTitle{
+                padding: 40rpx 0 10rpx;
+                text-align: center;
+                text{
+                    padding: 0 30rpx;
+                    font-size: 30rpx;
+                    color: #000;
+                }
+            }
+            .cateContainItemCon{
+                overflow: hidden;
+                navigator{
+                    float: left;
+                    width: 33.33%;
+                    padding: 20rpx;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

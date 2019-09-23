@@ -1,66 +1,48 @@
-// pages/category/index.js
-Page({
+import {request} from '../../request/index.js'
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    // 左边菜单
+    cateMenu: [],
+    // 右边数据
+    cateContent: [],
+    // 激活当前索引
+    currentIndex: 0
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  // 分类总数据 不存入data中
+  cateData: [],
+  // 封装调用接口方法
+  getCateData(){
+    request({url: '/categories'})
+    .then((res) => {
+      // console.table(res.data.message)
+      // 总数据
+      this.cateData = res.data.message
+      // 左边数据
+      let cateMenu = this.cateData.map(v => { return v.cat_name })
+      // 右边数据
+      let cateContent = this.cateData[0].children
+      console.log(cateContent)
+      // 设置数据
+      this.setData({
+        cateMenu,
+        cateContent
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  // 切换菜单
+  handleChange(e){
+    // 左边菜单索引变化 右边数据根据索引的变化
+    const {index} = e.currentTarget.dataset
+    this.setData({
+      currentIndex: index,
+      cateContent: this.cateData[index].children
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  onLoad(){
+    this.getCateData()
   }
 })

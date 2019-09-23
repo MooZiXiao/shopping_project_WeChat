@@ -1,1 +1,52 @@
-/* pages/category/index.wxss */
+.cateWrap {
+  display: flex;
+  height: calc(100vh - 100rpx);
+  overflow: hidden;
+  /* 左边 */
+  /* 右边 */
+}
+.cateWrap .cateMenu {
+  width: 160rpx;
+  background-color: #eee;
+}
+.cateWrap .cateMenu .cateMenuItem {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-bottom: solid 1px #c7c4c4;
+}
+.cateWrap .cateMenu .active {
+  color: var(--themeColor);
+  background-color: #fff;
+  position: relative;
+}
+.cateWrap .cateMenu .active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  width: 6rpx;
+  height: 50%;
+  background: currentColor;
+}
+.cateWrap .cateContain {
+  flex: 1;
+}
+.cateWrap .cateContain .cateContainItem .cateContainItemTitle {
+  padding: 40rpx 0 10rpx;
+  text-align: center;
+}
+.cateWrap .cateContain .cateContainItem .cateContainItemTitle text {
+  padding: 0 30rpx;
+  font-size: 30rpx;
+  color: #000;
+}
+.cateWrap .cateContain .cateContainItem .cateContainItemCon {
+  overflow: hidden;
+}
+.cateWrap .cateContain .cateContainItem .cateContainItemCon navigator {
+  float: left;
+  width: 33.33%;
+  padding: 20rpx;
+  text-align: center;
+}

@@ -1,2 +1,25 @@
-<!--pages/category/index.wxml-->
-<text>pages/category/index.wxml</text>
+<!-- 搜索组件开始 -->
+<indexSearch></indexSearch>
+<!-- 搜索组件结束 -->
+<view class="cateWrap">
+    <!-- 左边 -->
+    <scroll-view scroll-y class="cateMenu">
+        <view class="cateMenuItem {{currentIndex === index ? 'active' : ''}}" wx:for='{{cateMenu}}' wx:for-index='index' wx:key="index" bindtap="handleChange" data-index='{{index}}'>
+            {{item}}
+        </view>
+    </scroll-view>
+    <!-- 右边 -->
+    <scroll-view scroll-y class="cateContain">
+        <view class='cateContainItem' wx:for="{{cateContent}}" wx:for-index="index1" wx:for-item="item1" wx:key="cat_id">    
+            <!-- 标题 -->
+            <view class="cateContainItemTitle">/ <text>{{item1.cat_name}}</text> /</view>
+            <!-- 内容 -->
+            <view class="cateContainItemCon">
+                <navigator wx:for="{{item1.children}}" wx:for-index="index2" wx:for-item="item2" wx:key="cat_id">
+                    <image mode="widthFix" src="{{item2.cat_icon}}"></image>
+                    <text>{{item2.cat_name}}</text>
+                </navigator>
+            </view>
+        </view>
+    </scroll-view>
+</view>
