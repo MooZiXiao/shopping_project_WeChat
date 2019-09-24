@@ -25,3 +25,27 @@
     <rich-text nodes="{{detailData.goods_introduce}}"></rich-text>
 </view>
 <!-- 图文详情结束 -->
+<!-- 底部工具栏开始 -->
+<view class="btmToolBar">
+    <view class="btmToolBarItem contact">
+        <button open-type="contact"></button>
+        <text class="iconfont icon-kefu btmToolBarIcon"></text>
+        <text>联系客服</text>
+    </view>
+    <view class="btmToolBarItem share">
+        <button open-type="share"></button>
+        <text class="iconfont icon-yixianshi- btmToolBarIcon"></text>
+        <text>分享</text>
+    </view>
+    <navigator open-type="switchTab" url="/pages/cart/index" class="btmToolBarItem shoppingCart">
+        <text class="iconfont icon-gouwuche btmToolBarIcon"></text>
+        <text>购物车</text>
+    </navigator>
+    <view class="btmToolBarItem addCart">
+        <text>加入购物车</text>
+    </view>
+    <view class="btmToolBarItem rightBuy">
+        <text>立即购买</text>
+    </view>
+</view>
+<!-- 底部工具栏结束 -->

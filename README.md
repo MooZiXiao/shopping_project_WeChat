@@ -695,3 +695,40 @@ handleTap(e){
 <!-- 图文详情结束 -->
 ```
 
+#### 7.4 底部工具栏 ####
+
+自定义工具栏：联系客服 - 分享 - 购物车 - 加入购物车 - 立即购买
+
+注意：
+
+1.联系客服、分享，其实是 button 属性设置
+
+2.导航至购物车，需设置 navigator 属性 open-type 为跳转到 tabBar 页面的合法值（switchTab）
+
+```html
+<!-- 底部工具栏开始 -->
+<view class="btmToolBar">
+    <view class="btmToolBarItem contact">
+        <button open-type="contact"></button>
+        <text class="iconfont icon-kefu btmToolBarIcon"></text>
+        <text>联系客服</text>
+    </view>
+    <view class="btmToolBarItem share">
+        <button open-type="share"></button>
+        <text class="iconfont icon-yixianshi- btmToolBarIcon"></text>
+        <text>分享</text>
+    </view>
+    <navigator open-type="switchTab" url="/pages/cart/index" class="btmToolBarItem shoppingCart">
+        <text class="iconfont icon-gouwuche btmToolBarIcon"></text>
+        <text>购物车</text>
+    </navigator>
+    <view class="btmToolBarItem addCart">
+        <text>加入购物车</text>
+    </view>
+    <view class="btmToolBarItem rightBuy">
+        <text>立即购买</text>
+    </view>
+</view>
+<!-- 底部工具栏结束 -->
+```
+
