@@ -17,6 +17,8 @@
                 <view class="goodsItemContPrice">￥{{item.goods_price}}</view>
             </view>
         </view>
+        <!-- 上拉触底显示 -->
+        <view class="ReachBottomTip" wx:if="{{isBtmShow}}">------ 嗯哼,本宝宝也是有底线的 -----</view>
     </view>
     <view wx:elif="{{currentIndex === 1}}">1</view>
     <view wx:else>2</view>

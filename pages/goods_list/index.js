@@ -13,6 +13,8 @@ Page({
       {name: '销量'},
       {name: '价格'}
     ],
+    // 触底提示显隐
+    isBtmShow: false,
     // 当前点击的tab
     currentIndex: 0
   },
@@ -24,6 +26,8 @@ Page({
     pagenum: 1,
     pagesize: 10
   },
+  // 总页数
+  total: 0,
   // tab切换
   getTabIndex(e){
     this.setData({
@@ -31,15 +35,21 @@ Page({
     })
   },
   // 调用商品接口
-  getGoodData(cid){
-    this.queryParams.cid = cid
+  getGoodData(){
     // 调用接口传参
     request({url: '/goods/search', data: this.queryParams})
     .then(res => {
       // console.table(res.data.message.goods)
+      const {goods, total} = res.data.message
+      // 总页数
+      this.total = Math.ceil(total / this.queryParams.pagesize)
+      // 旧数据,上拉触底时显示的数据应该是之前的加上当前页的数据
+      const oldData = this.data.goodData
+      // 设置数据
       this.setData({
-        goodData: res.data.message.goods
+        goodData: [...oldData, ...goods]
       })
+      console.log(goods, this.total)
     })
   },
   /**
@@ -49,6 +59,27 @@ Page({
     // 获得地址参数
     // console.log(options)
     let cid = options.cid
+    // 赋值参数的cid
+    this.queryParams.cid = cid
     this.getGoodData(cid)
   },
+  // 上拉触底
+  onReachBottom: function() {
+    // 判断是否还有下一页
+    if(this.queryParams.pagenum >= this.total){
+      // 提示
+      wx.showToast({
+        title: '你将失去你的宝宝.........没有更多数据了噢..........',
+        icon: 'none'
+      })
+      // 显示
+      this.setData({
+        isBtmShow: true
+      })
+    }else{
+      // 还有
+      this.queryParams.pagenum++
+      this.getGoodData()
+    }
+  }
 })

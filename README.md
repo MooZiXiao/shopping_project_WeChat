@@ -475,8 +475,7 @@ queryParams:{
 设置 goodData 变量接收调用接口返回的数据
 
 ```js
-getGoodData(cid){
-    this.queryParams.cid = cid
+getGoodData(){
     // 调用接口传参
     request({url: '/goods/search', data: this.queryParams})
     .then(res => {
@@ -495,6 +494,7 @@ onLoad: function (options) {
     // 获得地址参数
     // console.log(options)
     let cid = options.cid
+    this.queryParams.cid = cid
     this.getGoodData(cid)
 }
 ```
@@ -522,4 +522,89 @@ onLoad: function (options) {
     <view wx:else>2</view>
 </goodsTab>
 ```
+
+#### 6.3 上拉触底滚动下一页 ####
+
+设置变量 total 总页数，在调用接口时计算出总页数
+
+```js
+// getGoodData 方法中
+// 总页数
+this.total = Math.ceil(total / this.queryParams.pagesize)
+```
+
+通过上拉触底事件，判断传入的参数页数（pagenum）是否大于 总页数
+
+是，则没有数据了，需给出提示 （wx.showToast）
+
+否，则 传入的参数页数自增，并调用获得商品列表的参数（此时显示有bug）
+
+bug：上拉触底下一页时只会显示当前页的数据，并不会显示之前加上当前页的数据
+
+解决：在调用接口方法中，设置显示的列表数据为：之前页的数据 + 当前页数据
+
+```js
+getGoodData(){
+    // 调用接口传参
+    request({url: '/goods/search', data: this.queryParams})
+        .then(res => {
+        // console.table(res.data.message.goods)
+        const {goods, total} = res.data.message
+        // 总页数
+        this.total = Math.ceil(total / this.queryParams.pagesize)
+        // 旧数据,上拉触底时显示的数据应该是之前的加上当前页的数据
+        const oldData = this.data.goodData
+        // 设置数据
+        this.setData({
+            goodData: [...oldData, ...goods]
+        })
+        console.log(goods, this.total)
+    })
+}
+```
+
+设置在页面触底时没有数据时，在页面显示 ‘嗯哼,本宝宝也是有底线的’ 的文字
+
+则
+
+1.在data中设置变量 isBtmShow: false 
+
+2.在页面上加上显示该行文字的结构，并设置判断 isBtmShow
+
+3.在触底没有数据时，设置 isBtmShow: true
+
+```html
+view class="ReachBottomTip" wx:if="{{isBtmShow}}">------ 嗯哼,本宝宝也是有底线的 -----</view>
+```
+
+```js
+// 触底提示显隐(data中)
+isBtmShow: false,
+```
+
+上拉触底全部代码
+
+```js
+// 上拉触底
+onReachBottom: function() {
+    // 判断是否还有下一页
+    if(this.queryParams.pagenum >= this.total){
+        // 提示
+        wx.showToast({
+            title: '你将失去你的宝宝.........没有更多数据了噢..........',
+            icon: 'none'
+        })
+        // 显示
+        this.setData({
+            isBtmShow: true
+        })
+    }else{
+        // 还有
+        this.queryParams.pagenum++
+        this.getGoodData()
+    }
+}
+```
+
+
 
