@@ -1,66 +1,41 @@
-// pages/goods_detail/index.js
+// 引入
+import {request} from '../../request/index.js';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    // 商品详情数据
+    detailData: []
   },
-
+  /* 设置调用详情的接口方法 */
+  getDetailData(goods_id){
+    request({url: '/goods/detail', data:{goods_id}})
+    .then(res => {
+      console.table(res.data.message)
+      this.setData({
+        detailData: res.data.message
+      })
+    })
+  },
+  /* 图预览 */
+  handleTap(e){
+    // console.log(this.data.detailData,e)
+    const {current} = e.target.dataset
+    const urls = this.data.detailData.pics.map(v => v = v.pics_mid)
+    wx.previewImage({
+      current, 
+      urls
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    let {goods_id} = options
+    // 调用接口
+    // console.log(goods_id)
+    this.getDetailData(goods_id)
   }
 })

@@ -1,1 +1,13 @@
-/* pages/goods_detail/index.wxss */
+/* 轮播开始 */
+.detailSwiper swiper {
+  height: 480rpx;
+}
+.detailSwiper swiper swiper-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detailSwiper swiper swiper-item image {
+  width: 60%;
+}
+/* 轮播结束 */

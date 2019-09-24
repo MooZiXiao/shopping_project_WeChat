@@ -636,3 +636,37 @@ bug：页面数据加载完成时，下拉刷新并没有同步关闭
 wx.stopPullDownRefresh()
 ```
 
+### 7 商品详情 ###
+
+#### 7.1 商品轮播图 ####
+
+同首页轮播图一样设置，略
+
+#### 7.2 商品图片预览 ####
+
+设置图片点击事件及传入的当前图片地址 （data-current="{{item.pics_mid}}"）
+
+```html
+<view class="detailSwiper">
+    <swiper autoplay indicator-dots circular bindtap="handleTap">
+        <swiper-item wx:for="{{detailData.pics}}" wx:key="pics_id">
+            <image mode="widthFix" src="{{item.pics_mid}}" data-current="{{item.pics_mid}}"></image>
+        </swiper-item>
+    </swiper>
+</view>
+```
+
+调用 wx.previewImage API 获得所需的参数，传入参数即可
+
+```js
+handleTap(e){
+    // console.log(this.data.detailData,e)
+    const {current} = e.target.dataset
+    const urls = this.data.detailData.pics.map(v => v = v.pics_mid)
+    wx.previewImage({
+        current, // 当前图片路径
+        urls // 图片数组
+    })
+}
+```
+
