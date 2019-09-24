@@ -32,7 +32,7 @@
   font-size: 32rpx;
   color: var(--themeColor);
 }
-.reachbottomtip {
+.ReachBottomTip {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -50,6 +50,9 @@ Page({
         goodData: [...oldData, ...goods]
       })
       console.log(goods, this.total)
+      
+      // 关闭下拉刷新
+      wx.stopPullDownRefresh()
     })
   },
   /**
@@ -81,5 +84,16 @@ Page({
       this.queryParams.pagenum++
       this.getGoodData()
     }
+  },
+  // 下拉刷新
+  onPullDownRefresh(){
+    // 重置页码
+    this.queryParams.pagenum = 1
+    // 重置数据
+    this.setData({
+      goodData: []
+    })
+    // 调用接口
+    this.getGoodData()
   }
 })

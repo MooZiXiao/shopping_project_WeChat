@@ -606,5 +606,33 @@ onReachBottom: function() {
 }
 ```
 
+#### 6.4 下拉刷新 ####
 
+在页面配置中设置 **enablePullDownRefresh: true** ，设置下拉样式 **backgroundTextStyle：“drak”**
+
+设置下拉刷新事件 onPullDownRefresh
+
+```js
+// 下拉刷新
+onPullDownRefresh(){
+    // 重置页码
+    this.queryParams.pagenum = 1
+    // 重置数据
+    this.setData({
+        goodData: []
+    })
+    // 调用接口
+    this.getGoodData()
+}
+```
+
+bug：页面数据加载完成时，下拉刷新并没有同步关闭
+
+解决：在调用商品列表接口的方法中，设置 获得数据成功时关闭下拉刷新
+
+```js
+// getGoodData 中
+// 关闭下拉刷新
+wx.stopPullDownRefresh()
+```
 
