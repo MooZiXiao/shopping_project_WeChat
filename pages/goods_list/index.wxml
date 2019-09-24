@@ -3,7 +3,21 @@
 <!-- 搜索组件结束 -->
 <!-- tab组件开始 -->
 <goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="getTabIndex">
-    <view wx:if="{{currentIndex === 0}}">0</view>
+    <view wx:if="{{currentIndex === 0}}">
+        <view class="goodsItem" wx:for="{{goodData}}" wx:key="goods_id">
+            <!-- 图片 -->
+            <view class="goodsItemImg">
+                <navigator>
+                    <image mode="widthFix" src="{{item.goods_small_logo || 'http://img3.imgtn.bdimg.com/it/u=62131398,3721023975&fm=26&gp=0.jpg'}}"></image>
+                </navigator>
+            </view>
+            <!-- 内容 -->
+            <view class="goodsItemCont">
+                <view class="goodsItemContTitle">{{item.goods_name}}</view>
+                <view class="goodsItemContPrice">￥{{item.goods_price}}</view>
+            </view>
+        </view>
+    </view>
     <view wx:elif="{{currentIndex === 1}}">1</view>
     <view wx:else>2</view>
 </goodsTab>

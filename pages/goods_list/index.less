@@ -1,0 +1,36 @@
+.goodsItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 34rpx 0;
+    border-bottom: 2rpx solid #d8d8d8;
+  .goodsItemImg {
+    width: 35%;
+    navigator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      image {
+        width: 70%;
+      }
+    }
+  }
+
+  .goodsItemCont {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 30rpx;
+    view.goodsItemContTitle {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical
+    }
+
+    .goodsItemContPrice {
+      font-size: 32rpx;
+      color: var(--themeColor)
+    }
+  }
+}

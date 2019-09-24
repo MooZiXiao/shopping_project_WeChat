@@ -455,3 +455,71 @@ tab组件的完整代码
 <!-- tab组件结束 -->
 ```
 
+#### 6.2 商品列表数据的渲染 ####
+
+设置调用接口所需要的参数（data外定义）
+
+```js
+// 页面加载不显示的数据
+queryParams:{
+    // 查询参数
+    query: "",
+    cid: "",
+    pagenum: 1,
+    pagesize: 10
+}
+```
+
+封装调用商品列表数据的接口方法
+
+设置 goodData 变量接收调用接口返回的数据
+
+```js
+getGoodData(cid){
+    this.queryParams.cid = cid
+    // 调用接口传参
+    request({url: '/goods/search', data: this.queryParams})
+    .then(res => {
+      // console.table(res.data.message.goods)
+      this.setData({
+        goodData: res.data.message.goods
+      })
+    })
+}
+```
+
+在 onLoad(options) 获得传来的地址参数，并调用封装调用商品列表数据的接口方法
+
+```js
+onLoad: function (options) {
+    // 获得地址参数
+    // console.log(options)
+    let cid = options.cid
+    this.getGoodData(cid)
+}
+```
+
+根据返回的数据，渲染结构
+
+```html
+<goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="getTabIndex">
+    <view wx:if="{{currentIndex === 0}}">
+        <view class="goodsItem" wx:for="{{goodData}}" wx:key="goods_id">
+            <!-- 图片 -->
+            <view class="goodsItemImg">
+                <navigator>
+                    <image mode="widthFix" src="{{item.goods_small_logo || 'http://img3.imgtn.bdimg.com/it/u=62131398,3721023975&fm=26&gp=0.jpg'}}"></image>
+                </navigator>
+            </view>
+            <!-- 内容 -->
+            <view class="goodsItemCont">
+                <view class="goodsItemContTitle">{{item.goods_name}}</view>
+                <view class="goodsItemContPrice">￥{{item.goods_price}}</view>
+            </view>
+        </view>
+    </view>
+    <view wx:elif="{{currentIndex === 1}}">1</view>
+    <view wx:else>2</view>
+</goodsTab>
+```
+

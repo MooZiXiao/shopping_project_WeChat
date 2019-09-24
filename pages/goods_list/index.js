@@ -16,6 +16,14 @@ Page({
     // 当前点击的tab
     currentIndex: 0
   },
+  // 页面加载不显示的数据
+  queryParams:{
+    // 查询参数
+    query: "",
+    cid: "",
+    pagenum: 1,
+    pagesize: 10
+  },
   // tab切换
   getTabIndex(e){
     this.setData({
@@ -24,9 +32,11 @@ Page({
   },
   // 调用商品接口
   getGoodData(cid){
-    request({url: '/goods/search', cid})
+    this.queryParams.cid = cid
+    // 调用接口传参
+    request({url: '/goods/search', data: this.queryParams})
     .then(res => {
-      console.table(res.data.message.goods)
+      // console.table(res.data.message.goods)
       this.setData({
         goodData: res.data.message.goods
       })
