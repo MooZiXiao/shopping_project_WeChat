@@ -670,3 +670,28 @@ handleTap(e){
 }
 ```
 
+#### 7.3 商品详情数据渲染 ####
+
+注意：富文本区域的渲染用 rich-text
+
+```html
+<!-- 价格开始 -->
+<view class="detailPrice">￥ {{detailData.goods_price}}</view>
+<!-- 价格结束 -->
+<!-- 商品名字及收藏开始 -->
+<view class="detailTitle">
+    <view class="detailName">{{detailData.goods_name}}</view>
+    <view class="detailCollect">
+        <text class="iconfont icon-shoucang collectIcon"></text>
+        <text>收藏</text>
+    </view>
+</view>
+<!-- 商品名字及收藏结束 -->
+<!-- 图文详情开始 -->
+<view class="detailInfo">
+    <view class="detailInfoTitle">图文详情</view>
+    <rich-text nodes="{{detailData.goods_introduce}}"></rich-text>
+</view>
+<!-- 图文详情结束 -->
+```
+

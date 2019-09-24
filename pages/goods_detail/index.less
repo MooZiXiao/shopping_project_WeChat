@@ -13,3 +13,49 @@
     }
 }
 /* 轮播结束 */
+/* 价格开始 */
+.detailPrice{
+    margin: 0 20rpx;
+    font-size: 36rpx;
+    font-weight: 600;
+    color: var(--themeColor);
+}
+/* 价格结束 */
+/* 商品名字及收藏开始 */
+.detailTitle{
+    display: flex;
+    margin: 30rpx 0;
+    border-top: solid 2rpx #ccc;
+    border-bottom: solid 2rpx #ccc;
+    .detailName{
+        flex: 5;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin: 10rpx;
+        font-size: 36rpx;
+    }
+    .detailCollect{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-left: solid 2rpx #ccc;
+        .collectIcon{
+            font-size: 36rpx;
+        }
+    }
+}
+/* 商品名字及收藏结束 */
+/* 图文详情开始 */
+.detailInfo{
+    .detailInfoTitle{
+        margin: 10rpx 20rpx;
+        font-size: 36rpx;
+        font-weight: 600;
+        color: var(--themeColor);
+    }
+}
+/* 图文详情结束 */
