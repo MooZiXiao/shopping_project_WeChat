@@ -1,66 +1,44 @@
-// pages/goods_list/index.js
+// 引入
+import {request} from '../../request/index.js'
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    // 接口返回的数据
+    goodData: [],
+    // tab标题
+    tabTitle: [
+      {name: '综合'},
+      {name: '销量'},
+      {name: '价格'}
+    ],
+    // 当前点击的tab
+    currentIndex: 0
   },
-
+  // tab切换
+  getTabIndex(e){
+    this.setData({
+      currentIndex: e.detail.index
+    })
+  },
+  // 调用商品接口
+  getGoodData(cid){
+    request({url: '/goods/search', cid})
+    .then(res => {
+      console.table(res.data.message.goods)
+      this.setData({
+        goodData: res.data.message.goods
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 获得地址参数
+    // console.log(options)
+    let cid = options.cid
+    this.getGoodData(cid)
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

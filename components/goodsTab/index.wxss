@@ -1,0 +1,17 @@
+.goodsTab{
+
+}
+.goodsTabTitle{
+    display: flex;
+    height: 90rpx;
+}
+.goodsTabTitle .goodsTabTitleItem{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.goodsTabTitle .active{
+    color: var(--themeColor);
+    border-bottom: solid 2rpx currentColor;
+}

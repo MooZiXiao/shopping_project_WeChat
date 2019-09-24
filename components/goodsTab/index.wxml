@@ -1,0 +1,11 @@
+<view class="goodsTab">
+    <!-- 标题 -->
+    <view class="goodsTabTitle">
+        <view class="goodsTabTitleItem {{currentIndex === index ? 'active' : ''}}" wx:for='{{tabTitle}}' wx:key="name" bindtap="handleChange"
+        data-index="{{index}}">{{item.name}}</view>
+    </view>
+    <!-- 内容 -->
+    <view class="goodsTabCont">
+        <slot></slot>
+    </view>
+</view>
