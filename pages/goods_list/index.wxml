@@ -5,17 +5,17 @@
 <goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="getTabIndex">
     <view wx:if="{{currentIndex === 0}}">
         <view class="goodsItem" wx:for="{{goodData}}" wx:key="goods_id">
-            <!-- 图片 -->
-            <view class="goodsItemImg">
-                <navigator url="/pages/goods_detail/index?goods_id={{item.goods_id}}">
+            <navigator url="/pages/goods_detail/index?goods_id={{item.goods_id}}">
+                <!-- 图片 -->
+                <view class="goodsItemImg">
                     <image mode="widthFix" src="{{item.goods_small_logo || 'http://img3.imgtn.bdimg.com/it/u=62131398,3721023975&fm=26&gp=0.jpg'}}"></image>
-                </navigator>
-            </view>
-            <!-- 内容 -->
-            <view class="goodsItemCont">
-                <view class="goodsItemContTitle"><navigator url="/pages/goods_detail/index?goods_id={{item.goods_id}}">{{item.goods_name}}</navigator></view>
-                <view class="goodsItemContPrice">￥{{item.goods_price}}</view>
-            </view>
+                </view>
+                <!-- 内容 -->
+                <view class="goodsItemCont">
+                    <view class="goodsItemContTitle">{{item.goods_name}}</view>
+                    <view class="goodsItemContPrice">￥{{item.goods_price}}</view>
+                </view>
+            </navigator>
         </view>
         <!-- 上拉触底显示 -->
         <view class="ReachBottomTip" wx:if="{{isBtmShow}}">------ 嗯哼,本宝宝也是有底线的 -----</view>

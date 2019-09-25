@@ -502,25 +502,29 @@ onLoad: function (options) {
 根据返回的数据，渲染结构
 
 ```html
+<!-- tab组件开始 -->
 <goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="getTabIndex">
     <view wx:if="{{currentIndex === 0}}">
         <view class="goodsItem" wx:for="{{goodData}}" wx:key="goods_id">
-            <!-- 图片 -->
-            <view class="goodsItemImg">
-                <navigator>
+            <navigator url="/pages/goods_detail/index?goods_id={{item.goods_id}}">
+                <!-- 图片 -->
+                <view class="goodsItemImg">
                     <image mode="widthFix" src="{{item.goods_small_logo || 'http://img3.imgtn.bdimg.com/it/u=62131398,3721023975&fm=26&gp=0.jpg'}}"></image>
-                </navigator>
-            </view>
-            <!-- 内容 -->
-            <view class="goodsItemCont">
-                <view class="goodsItemContTitle">{{item.goods_name}}</view>
-                <view class="goodsItemContPrice">￥{{item.goods_price}}</view>
-            </view>
+                </view>
+                <!-- 内容 -->
+                <view class="goodsItemCont">
+                    <view class="goodsItemContTitle">{{item.goods_name}}</view>
+                    <view class="goodsItemContPrice">￥{{item.goods_price}}</view>
+                </view>
+            </navigator>
         </view>
+        <!-- 上拉触底显示 -->
+        <view class="ReachBottomTip" wx:if="{{isBtmShow}}">------ 嗯哼,本宝宝也是有底线的 -----</view>
     </view>
     <view wx:elif="{{currentIndex === 1}}">1</view>
     <view wx:else>2</view>
 </goodsTab>
+<!-- tab组件结束 -->
 ```
 
 #### 6.3 上拉触底滚动下一页 ####
@@ -730,5 +734,71 @@ handleTap(e){
     </view>
 </view>
 <!-- 底部工具栏结束 -->
+```
+
+#### 7.5 加入购物车 ####
+
+点击加入购物车，设置对应的点击事件
+
+事件需处理操作：
+
+1.需设置购物车所需的数据，将数据追加到数组中，并设置本地存储
+
+2.在设置本地存储前，2.1需判断本地是否有数据
+
+2.2获得商品数据
+
+2.3根据本地的数据，判断本地数据是否包含该商品数据，通过 findIndex 判断对应商品id返回存储在本地的索引(index)
+
+2.4判断 索引 
+
+2.4.1若 index === -1时，则表示不存在该商品数据，则需将数据追加到本地
+
+2.4.2否则，根据索引将存储在本地的对应商品的数据的购买数量自增
+
+```js
+/* 加入购物车 */
+handleAddCart(){
+    // 将购物车所需的参数收集，存储至本地
+    // 在存储本地时，需判断是否有数据，没有则为  []
+    // 存储时，需判断本地是否有一致数据，若有，则 数量 + 1
+
+    // 获得商品数据
+    const {detailData} = this.data
+    console.log(this.data) 
+
+    // 判断是否有本地数据
+    let cartData = wx.getStorageSync('shoppingCartData') || [];
+    // 判断本地是否包含该商品数据，返回index
+    let index = cartData.findIndex(v => v.id === detailData.goods_id)
+
+    // 判断是否 index
+    if(index === -1){
+        // 不存在该商品数据
+        cartData.push({
+            id: detailData.goods_id,
+            goods_name: detailData.goods_name,
+            goods_small_logo: detailData.goods_small_logo,
+            goods_price: detailData.goods_price,
+            buy_num: 1
+        })
+
+        // 提示 添加成功
+        wx.showToast({
+            title: '商品添加成功噢...',
+            mask: true
+        })
+    }else{
+        // 存在
+        // 提示 添加成功, 防止用户频繁点击添加
+        wx.showToast({
+            title: '商品添加成功噢...',
+            mask: true
+        })
+        cartData[index].buy_num ++
+    }
+    // 存储至本地
+    wx.setStorageSync('shoppingCartData', cartData)
+}
 ```
 

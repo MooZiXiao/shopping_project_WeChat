@@ -41,7 +41,7 @@
         <text class="iconfont icon-gouwuche btmToolBarIcon"></text>
         <text>购物车</text>
     </navigator>
-    <view class="btmToolBarItem addCart">
+    <view class="btmToolBarItem addCart" bindtap="handleAddCart">
         <text>加入购物车</text>
     </view>
     <view class="btmToolBarItem rightBuy">
