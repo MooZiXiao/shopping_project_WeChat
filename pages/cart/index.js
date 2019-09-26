@@ -1,6 +1,6 @@
 // 引入
 import regeneratorRuntime from '../../lib/runtime/runtime.js';
-import {request, getSetting, openSetting, chooseAddress} from '../../request/index.js'
+import {request, getSetting, openSetting, chooseAddress, showModal} from '../../request/index.js'
 Page({
   /**
    * 页面的初始数据
@@ -78,6 +78,8 @@ Page({
       }
     })
 
+    isAllChecked = cartData.length === 0 ? false : isAllChecked
+
     // 赋值
     this.setData({
       totalPrice,
@@ -112,11 +114,46 @@ Page({
     shoppingCartData.forEach(v => {
       v.checked = !isAllChecked
     })
-    
+
     // 重新赋值
     this.setData({
       shoppingCartData,
       isAllChecked: !isAllChecked
+    })
+    // 本地
+    wx.setStorageSync("shoppingCartData", shoppingCartData)
+    // 重新计算
+    this.getTotalPriceAndNum(shoppingCartData)
+  },
+  /* 加减 */
+  async handleChangeNum(e){
+    // 获得点击的索引及运算
+    const {index, operator} = e.target.dataset
+    // 获得购物车数据
+    const {shoppingCartData} = this.data
+
+    // 判断是加还是减
+    // 若是减，当 购买数量为 1 时，应提示是否删除
+    if(operator === -1 && shoppingCartData[index].buy_num === 1){
+      // 减
+      const res = await showModal({title: '删除提示', content: '您确定要残忍删除该商品吗？'})
+      if(res){
+        // 确定
+        shoppingCartData.splice(index, 1)
+      }else{
+        // 取消
+        return
+      }
+    }
+    else{
+      // 加
+      shoppingCartData[index].buy_num += operator
+    }
+
+    
+    // 重新赋值
+    this.setData({
+      shoppingCartData
     })
     // 本地
     wx.setStorageSync("shoppingCartData", shoppingCartData)

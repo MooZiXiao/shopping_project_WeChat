@@ -32,9 +32,9 @@
                 <view class="cartDataItemContPriceWrap">
                     <view class="cartDataItemContPrice">￥ {{item.goods_price}}</view>
                     <view class="cartDataItemContPriceBtn">
-                        <button class="priceReduce priceBtn" plain>-</button>
+                        <button class="priceReduce priceBtn" plain bindtap="handleChangeNum" data-index="{{index}}" data-operator="{{-1}}">-</button>
                         <text>{{item.buy_num}}</text>
-                        <button class="priceAdd priceBtn" plain>+</button>
+                        <button class="priceAdd priceBtn" plain bindtap="handleChangeNum" data-index="{{index}}" data-operator="{{1}}">+</button>
                     </view>
                 </view>
             </view>

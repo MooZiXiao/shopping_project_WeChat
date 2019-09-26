@@ -72,3 +72,18 @@ export const chooseAddress = () => {
         }); 
     })
 }
+
+// 弹窗
+export const showModal = (params) => {
+    return new Promise((resolve, reject) => {
+        wx.showModal({
+            ...params,
+            success: (res) => {
+                resolve(res.confirm)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        }); 
+    })
+}

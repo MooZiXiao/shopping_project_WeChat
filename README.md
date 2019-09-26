@@ -1069,6 +1069,72 @@ handleAllCheckBox(){
 }
  ```
 
+#### 8.6 购买数量的加减 ####
 
+通过 加、减按钮添加点击事件，并传入引入及运算的规则
 
- 
+获得购物车数据
+
+通过判断运算规则的值 operator
+
+若是 -1，还需要考虑当 购买数量等于 1时的情况
+
+等于 1时，则判断条件就加多一条条件：购物车数据对应项的购买数量等于1
+
+则为 删除 操作，应弹窗提示，这里 在 request.js 封装 弹窗(showModal)的异步方法
+
+最后，根据索引对购物车数据对应项进行删除操作
+
+若是 1，则 购物车数据对应项的购买数量 + 1
+
+```js
+async handleChangeNum(e){
+    // 获得点击的索引及运算
+    const {index, operator} = e.target.dataset
+    // 获得购物车数据
+    const {shoppingCartData} = this.data
+
+    // 判断是加还是减
+    // 若是减，当 购买数量为 1 时，应提示是否删除
+    if(operator === -1 && shoppingCartData[index].buy_num === 1){
+        // 减
+        const res = await showModal({title: '删除提示', content: '您确定要残忍删除该商品吗？'})
+        if(res){
+            // 确定
+            shoppingCartData.splice(index, 1)
+        }else{
+            // 取消
+            return
+        }
+    }
+    else{
+        // 加
+        shoppingCartData[index].buy_num += operator
+    }
+
+    // 重新赋值
+    this.setData({
+        shoppingCartData
+    })
+    // 本地
+    wx.setStorageSync("shoppingCartData", shoppingCartData)
+    // 重新计算
+    this.getTotalPriceAndNum(shoppingCartData)
+}
+```
+
+ bug：当商品全部删除后，全选还是勾选的
+
+解决：在赋值前，判断 购物车数据长度是否为0
+
+```js
+isAllChecked = cartData.length === 0 ? false : isAllChecked
+
+// 赋值
+this.setData({
+    totalPrice,
+    totalNum,
+    isAllChecked
+})
+```
+
