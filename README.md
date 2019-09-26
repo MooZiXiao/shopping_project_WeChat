@@ -1041,6 +1041,34 @@ handleCheckBox(e){
 }
 ```
 
+#### 8.5 全选逻辑 ####
+
+设置全选点击事件(handleAllCheckBox)
+
+获得购物车数据，遍历每一项，将每一项的 checked 为是否选中的全选变量（isAllChecked）取反
+
+更新数据、存入本地、再计算
+
+ ```js
+/* 全选 */
+handleAllCheckBox(){
+    let {shoppingCartData, isAllChecked} = this.data
+    // 遍历数据
+    shoppingCartData.forEach(v => {
+        v.checked = !isAllChecked
+    })
+    // 重新赋值
+    this.setData({
+        shoppingCartData,
+        isAllChecked: !isAllChecked
+    })
+    // 本地
+    wx.setStorageSync("shoppingCartData", shoppingCartData)
+    // 重新计算
+    this.getTotalPriceAndNum(shoppingCartData)
+}
+ ```
+
 
 
  

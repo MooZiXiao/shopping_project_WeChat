@@ -15,7 +15,7 @@ Page({
     // 总价
     totalPrice: 0,
     // 总数
-    totalNum: 0
+    totalNum: 0,
   },
   /**
    * 生命周期函数--监听页面显示
@@ -103,5 +103,24 @@ Page({
     // 重新计算
     this.getTotalPriceAndNum(shoppingCartData)
     
+  },
+  /* 全选 */
+  handleAllCheckBox(){
+    let {shoppingCartData, isAllChecked} = this.data
+
+    // 遍历数据
+    shoppingCartData.forEach(v => {
+      v.checked = !isAllChecked
+    })
+    
+    // 重新赋值
+    this.setData({
+      shoppingCartData,
+      isAllChecked: !isAllChecked
+    })
+    // 本地
+    wx.setStorageSync("shoppingCartData", shoppingCartData)
+    // 重新计算
+    this.getTotalPriceAndNum(shoppingCartData)
   }
 })
