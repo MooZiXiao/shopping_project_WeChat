@@ -1,4 +1,5 @@
 // 引入
+import regeneratorRuntime from '../../request/runtime.js'
 import {request} from '../../request/index.js'
 Page({
   /**
@@ -35,25 +36,24 @@ Page({
     })
   },
   // 调用商品接口
-  getGoodData(){
+  async getGoodData(){
     // 调用接口传参
-    request({url: '/goods/search', data: this.queryParams})
-    .then(res => {
-      // console.table(res.data.message.goods)
-      const {goods, total} = res.data.message
-      // 总页数
-      this.total = Math.ceil(total / this.queryParams.pagesize)
-      // 旧数据,上拉触底时显示的数据应该是之前的加上当前页的数据
-      const oldData = this.data.goodData
-      // 设置数据
-      this.setData({
-        goodData: [...oldData, ...goods]
-      })
-      // console.log(goods, this.total)
-      
-      // 关闭下拉刷新
-      wx.stopPullDownRefresh()
+    const res = await request({url: '/goods/search', data: this.queryParams})
+    
+    const {goods, total} = res
+
+    // 总页数
+    this.total = Math.ceil(total / this.queryParams.pagesize)
+    // 旧数据,上拉触底时显示的数据应该是之前的加上当前页的数据
+    const oldData = this.data.goodData
+    // 设置数据
+    this.setData({
+      goodData: [...oldData, ...goods]
     })
+    // console.log(goods, this.total)
+    
+    // 关闭下拉刷新
+    wx.stopPullDownRefresh()
   },
   /**
    * 生命周期函数--监听页面加载

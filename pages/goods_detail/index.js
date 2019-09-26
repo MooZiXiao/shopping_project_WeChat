@@ -1,4 +1,5 @@
 // 引入
+import regeneratorRuntime from '../../request/runtime.js';
 import {request} from '../../request/index.js';
 Page({
 
@@ -10,13 +11,11 @@ Page({
     detailData: []
   },
   /* 设置调用详情的接口方法 */
-  getDetailData(goods_id){
-    request({url: '/goods/detail', data:{goods_id}})
-    .then(res => {
-      console.table(res.data.message)
-      this.setData({
-        detailData: res.data.message
-      })
+  async getDetailData(goods_id){
+    const res = await request({url: '/goods/detail', data:{goods_id}})
+    // console.table(res.data.message)
+    this.setData({
+      detailData: res
     })
   },
   /* 图预览 */

@@ -170,6 +170,8 @@ swiper{
 
 ### 4 封装调用接口的库 ###
 
+#### 4.1 promise 优化 ####
+
 **request/index.js**
 
 ```js
@@ -247,6 +249,58 @@ getSwiperData(){
 }, 
 (其它调用类似)
 ... 
+```
+
+#### 4.2 再次优化 - ES7 ####
+
+简化 request.js 封装返回的数据，使用该封装来调用接口返回数据都包含(res.data.message)
+
+```js
+success: (res) => {
+    resolve(res.data.message)
+}
+```
+
+则使用该封装来调用接口返回数据，数据便是对应成功返回的数据：如商品列表调用
+
+```js
+const {goods, total} = res
+```
+
+使用 ES7  async - await
+
+则需要创建 runtime.js 插件，否则会报出 **regeneratorRuntime** 的错误
+
+runtime.js 插件内容，需在 [regenerator/packages/regenerator-runtime/runtime.js]( https://github.com/facebook/regenerator/blob/5703a79746fffc152600fdcef46ba9230671025a/packages/regenerator-runtime/runtime.js) Copy
+
+最后，在调用封装 request.js 的地方，同样地引入该插件
+
+```js
+import regeneratorRuntime from '../../request/runtime.js'
+```
+
+async - await 的使用，如商品列表
+
+```js
+async getGoodData(){
+    // 调用接口传参
+    const res = await request({url: '/goods/search', data: this.queryParams})
+
+    const {goods, total} = res
+
+    // 总页数
+    this.total = Math.ceil(total / this.queryParams.pagesize)
+    // 旧数据,上拉触底时显示的数据应该是之前的加上当前页的数据
+    const oldData = this.data.goodData
+    // 设置数据
+    this.setData({
+        goodData: [...oldData, ...goods]
+    })
+    // console.log(goods, this.total)
+
+    // 关闭下拉刷新
+    wx.stopPullDownRefresh()
+}
 ```
 
 ### 5 分类 ###
@@ -807,4 +861,3 @@ handleAddCart(){
 #### 8.1 购物车页面结构 ####
 
 添加地址 + 地址显示 + 购物车数据结构渲染 + 工具栏 
-

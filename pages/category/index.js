@@ -1,3 +1,4 @@
+import regeneratorRuntime from '../../request/runtime.js';
 import {request} from '../../request/index.js'
 
 Page({
@@ -17,27 +18,25 @@ Page({
   // 分类总数据 不存入data中
   cateData: [],
   // 封装调用接口方法
-  getCateData(){
-    request({url: '/categories'})
-    .then((res) => {
-      // console.table(res.data.message)
-      // 总数据
-      this.cateData = res.data.message
-      // 左边数据
-      let cateMenu = this.cateData.map(v => { return v.cat_name })
-      // 右边数据
-      let cateContent = this.cateData[0].children
-      console.log(cateContent)
-      // 设置数据
-      this.setData({
-        cateMenu,
-        cateContent
-      })
-      // 设置本地存储总数据
-      wx.setStorageSync('catesData',
-        {data: this.cateData, time: Date.now()}
-      )
+  async getCateData(){
+    const res = await request({url: '/categories'})
+    // console.table(res.data.message)
+    // 总数据
+    this.cateData = res
+    // 左边数据
+    let cateMenu = this.cateData.map(v => { return v.cat_name })
+    // 右边数据
+    let cateContent = this.cateData[0].children
+    console.log(cateContent)
+    // 设置数据
+    this.setData({
+      cateMenu,
+      cateContent
     })
+    // 设置本地存储总数据
+    wx.setStorageSync('catesData',
+      {data: this.cateData, time: Date.now()}
+    )
   },
   // 获取缓存的数据
   dataLoad(){

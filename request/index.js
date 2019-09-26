@@ -18,7 +18,7 @@ export const request = (params) => {
             // 覆盖url
             url: baseUrl + params.url,
             success: (res) => {
-                resolve(res)
+                resolve(res.data.message)
             },
             fail: (err) => {
                 reject(err)
