@@ -276,7 +276,7 @@ runtime.js 插件内容，需在 [regenerator/packages/regenerator-runtime/runti
 最后，在调用封装 request.js 的地方，同样地引入该插件
 
 ```js
-import regeneratorRuntime from '../../request/runtime.js'
+import regeneratorRuntime from '../../lib/runtime/runtime.js';
 ```
 
 async - await 的使用，如商品列表
@@ -861,3 +861,111 @@ handleAddCart(){
 #### 8.1 购物车页面结构 ####
 
 添加地址 + 地址显示 + 购物车数据结构渲染 + 工具栏 
+
+#### 8.2 收获地址逻辑 ####
+
+通过 API 来获得收获地址	--	wx.getSetting、wx.openSetting、wx.chooseAddress
+
+若是只用 wx.chooseAddress，当第一次获得通讯地址权限时，按取消后，再按则无法触发
+
+在 request.js 封装调用异步 API 方法
+
+```js
+// 当前设置
+export const getSetting = () => {
+    return new Promise((resolve, reject) => {
+        wx.getSetting({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        }); 
+    })
+}
+
+// 打开设置 调起客户端小程序设置界面，返回用户设置的操作结果
+export const openSetting = () => {
+    return new Promise((resolve, reject) => {
+        wx.openSetting({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        }); 
+    })
+}
+
+// 用户收获地址
+export const chooseAddress = () => {
+    return new Promise((resolve, reject) => {
+        wx.chooseAddress({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        }); 
+    })
+}
+```
+
+cart/index.js 
+
+点击获得**收获地址**按钮
+
+获得当前设置的状态，通过判断该状态是否等于 false, 是，则调用打开设置的异步方法
+
+调用获得用户收获地址的异步方法，设置渲染结构所需数据，赋值给设置接收的变量，并保存至本地
+
+```js
+async handleGetAddress(){
+    try{
+        // 点击获得用户当前设置
+        const res1 = await getSetting()
+        // 获得设置的状态
+        let auth = res1.authSetting['scope.address']
+        // 判断状态，若是 false, 打开设置
+        if(auth === false){
+            await openSetting()
+        }
+        // 收获地址信息
+        const res2 = await chooseAddress()
+        // 设置 详细收获地址
+        res2.detailAddress = res2.provinceName + res2.cityName + res2.countyName + res2.detailInfo
+        // 赋值
+        this.setData({
+            address: res2
+        })
+        // 存入本地
+        wx.setStorageSync("cartAddress", res2);
+    }
+    catch(error){
+        return
+    }
+}
+```
+
+通过使用 页面显示 的生命周期 加载数据
+
+注意：address在data中定义为空对象，而在获得本地数据时，address没有数据时，则为空字符串，不需要使用开关思想 （||），否则渲染的时候会出错
+
+```js
+onShow: function (options) {
+    // 本地数据
+    let shoppingCartData = wx.getStorageSync('shoppingCartData') || [];
+    let address = wx.getStorageSync('cartAddress')
+    // 设置
+    this.setData({
+        shoppingCartData, address
+    })
+}
+```
+
+
+
+ 

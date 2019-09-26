@@ -30,3 +30,45 @@ export const request = (params) => {
         })
     })
 }
+
+// 当前设置
+export const getSetting = () => {
+    return new Promise((resolve, reject) => {
+        wx.getSetting({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        }); 
+    })
+}
+
+// 打开设置 调起客户端小程序设置界面，返回用户设置的操作结果
+export const openSetting = () => {
+    return new Promise((resolve, reject) => {
+        wx.openSetting({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        }); 
+    })
+}
+
+// 用户收获地址
+export const chooseAddress = () => {
+    return new Promise((resolve, reject) => {
+        wx.chooseAddress({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        }); 
+    })
+}

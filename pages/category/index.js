@@ -1,4 +1,4 @@
-import regeneratorRuntime from '../../request/runtime.js';
+import regeneratorRuntime from '../../lib/runtime/runtime.js';
 import {request} from '../../request/index.js'
 
 Page({

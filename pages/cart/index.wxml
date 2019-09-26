@@ -1,5 +1,18 @@
 <!-- 添加收货地址开始 -->
-<button>+ 添加收货地址</button>
+<button bindtap="handleGetAddress" wx:if="{{!address}}">+ 添加收货地址</button>
+<view class="cartAddressWrap" wx:else>
+    <view class="cartAddress">
+        <view>
+            收货人：{{address.userName}}
+        </view>
+        <view>
+            {{address.telNumber}}
+        </view>
+    </view>
+    <view class="cartDetailAdress">
+        {{address.detailAddress}}
+    </view>
+</view>
 <!-- 添加收货地址结束 -->
 <!-- 购物车数据渲染开始 -->
 <view class="cartDataWrap" wx:if="{{shoppingCartData}}">
@@ -40,6 +53,5 @@
         <view class="otherPrice"><text></text><text>包含运费</text></view>
     </view>
     <view class="toPay">结算</view>
-    <!-- <navigator class="deepToPay">跳转至支付页面</navigator> -->
 </view>
 <!-- 结算工具栏结束 -->
