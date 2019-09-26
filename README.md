@@ -1004,6 +1004,43 @@ getTotalPriceAndNum(cartData){
 }
 ```
 
+#### 8.4 单选勾选逻辑 ####
+
+设置单选勾选事件及传入对应的点击的索引
+
+```html
+<checkbox-group bindchange="handleCheckBox" data-index="{{index}}"><checkbox checked="{{item.checked}}"></checkbox></checkbox-group>
+```
+
+通过该事件(handleCheckBox)，获得点击的索引。
+
+获得购物车数据，通过索引 对 对应的索引数据里的checked属性取非，设置是否勾选中
+
+然后重新赋值、存入本地
+
+最后再计算对应的总价及总数量
+
+```js
+/* 单选 */
+handleCheckBox(e){
+    // 点击对应的复选项，更改对应的 checked
+    // 对应点击的索引
+    const {index} = e.target.dataset
+    // 购物车数据
+    const {shoppingCartData} = this.data
+    // 根据索引修改
+    shoppingCartData[index].checked = !shoppingCartData[index].checked
+    // 重新赋值
+    this.setData({
+        shoppingCartData
+    })
+    // 本地
+    wx.setStorageSync("shoppingCartData", shoppingCartData)
+    // 重新计算
+    this.getTotalPriceAndNum(shoppingCartData)
+}
+```
+
 
 
  

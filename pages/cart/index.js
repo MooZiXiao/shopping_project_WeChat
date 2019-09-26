@@ -84,5 +84,24 @@ Page({
       totalNum,
       isAllChecked
     })
+  },
+  /* 单选 */
+  handleCheckBox(e){
+    // 点击对应的复选项，更改对应的 checked
+    // 对应点击的索引
+    const {index} = e.target.dataset
+    // 购物车数据
+    const {shoppingCartData} = this.data
+    // 根据索引修改
+    shoppingCartData[index].checked = !shoppingCartData[index].checked
+    // 重新赋值
+    this.setData({
+      shoppingCartData
+    })
+    // 本地
+    wx.setStorageSync("shoppingCartData", shoppingCartData)
+    // 重新计算
+    this.getTotalPriceAndNum(shoppingCartData)
+    
   }
 })

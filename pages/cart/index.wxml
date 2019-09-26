@@ -21,7 +21,7 @@
         <view class="cartDataTitle">购物车</view>
         <!-- 商品数据 -->
         <view class="cartDataItem" wx:for="{{shoppingCartData}}" wx:key="goods_id">
-            <checkbox-group><checkbox checked="{{item.checked}}"></checkbox></checkbox-group>
+            <checkbox-group bindchange="handleCheckBox" data-index="{{index}}"><checkbox checked="{{item.checked}}"></checkbox></checkbox-group>
             <!-- 图片 -->
             <view class="cartDataItemImg">
                 <image mode="widthFix" src="{{item.goods_small_logo}}"></image>
