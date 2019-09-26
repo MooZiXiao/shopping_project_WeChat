@@ -1,2 +1,45 @@
-<!--pages/cart/index.wxml-->
-<text>pages/cart/index.wxml</text>
+<!-- 添加收货地址开始 -->
+<button>+ 添加收货地址</button>
+<!-- 添加收货地址结束 -->
+<!-- 购物车数据渲染开始 -->
+<view class="cartDataWrap" wx:if="{{shoppingCartData}}">
+    <view class="cartData">
+        <!-- 商品标题 -->
+        <view class="cartDataTitle">购物车</view>
+        <!-- 商品数据 -->
+        <view class="cartDataItem" wx:for="{{shoppingCartData}}" wx:key="goods_id">
+            <checkbox-group><checkbox></checkbox></checkbox-group>
+            <!-- 图片 -->
+            <view class="cartDataItemImg">
+                <image mode="widthFix" src="{{item.goods_small_logo}}"></image>
+            </view>
+            <!-- 内容信息 -->
+            <view class="cartDataItemCont">
+                <view class="cartDataItemContTitle">{{item.goods_name}}</view>
+                <view class="cartDataItemContPriceWrap">
+                    <view class="cartDataItemContPrice">￥ {{item.goods_price}}</view>
+                    <view class="cartDataItemContPriceBtn">
+                        <button class="priceReduce priceBtn" plain>-</button>
+                        <text>{{item.buy_num}}</text>
+                        <button class="priceAdd priceBtn" plain>+</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cartDataWrapTip" wx:else>您的购物车空空如也...</view>
+<!-- 购物车数据渲染结束 -->
+<!-- 结算工具栏开始 -->
+<view class="priceToolBar">
+    <checkbox-group><checkbox>全选</checkbox></checkbox-group>
+    <view class="sumPrice">
+        <view class="thePrice">
+            合计：<text>￥ 9998</text>
+        </view>
+        <view class="otherPrice"><text></text><text>包含运费</text></view>
+    </view>
+    <view class="toPay">结算</view>
+    <!-- <navigator class="deepToPay">跳转至支付页面</navigator> -->
+</view>
+<!-- 结算工具栏结束 -->

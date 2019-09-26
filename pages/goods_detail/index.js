@@ -37,7 +37,7 @@ Page({
 
     // 获得商品数据
     const {detailData} = this.data
-    console.log(this.data) 
+    // console.log(this.data) 
 
     // 判断是否有本地数据
     let cartData = wx.getStorageSync('shoppingCartData') || [];

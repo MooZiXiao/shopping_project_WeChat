@@ -49,7 +49,7 @@ Page({
       this.setData({
         goodData: [...oldData, ...goods]
       })
-      console.log(goods, this.total)
+      // console.log(goods, this.total)
       
       // 关闭下拉刷新
       wx.stopPullDownRefresh()

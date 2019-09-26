@@ -765,7 +765,7 @@ handleAddCart(){
 
     // 获得商品数据
     const {detailData} = this.data
-    console.log(this.data) 
+    // console.log(this.data) 
 
     // 判断是否有本地数据
     let cartData = wx.getStorageSync('shoppingCartData') || [];
@@ -801,4 +801,10 @@ handleAddCart(){
     wx.setStorageSync('shoppingCartData', cartData)
 }
 ```
+
+### 8 购物车 ###
+
+#### 8.1 购物车页面结构 ####
+
+添加地址 + 地址显示 + 购物车数据结构渲染 + 工具栏 
 

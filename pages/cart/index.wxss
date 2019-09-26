@@ -1,1 +1,129 @@
-/* pages/cart/index.wxss */
+/* 添加收货地址开始 */
+/* 添加收货地址结束 */
+/* 购物车数据渲染开始 */
+.cartDataWrap .cartData .cartDataTitle {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--themeColor);
+  border-top: solid 1rpx currentColor;
+  border-bottom: solid 1rpx currentColor;
+}
+.cartDataWrap .cartData .cartDataItem {
+  display: flex;
+  width: 100%;
+  padding: 20rpx ;
+  border-bottom: solid 1rpx #ccc;
+}
+.cartDataWrap .cartData .cartDataItem checkbox-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemImg {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemImg image {
+  width: 70%;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemCont {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContTitle {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 28rpx;
+  color: #000;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContPriceWrap {
+  display: flex;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContPriceWrap .cartDataItemContPrice {
+  margin-right: 20%;
+  font-weight: 600;
+  color: var(--themeColor);
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContPriceWrap .cartDataItemContPriceBtn {
+  display: flex;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContPriceWrap .cartDataItemContPriceBtn .priceBtn {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 30rpx;
+}
+.cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContPriceWrap .cartDataItemContPriceBtn text {
+  padding: 0 20rpx;
+}
+/* 购物车数据渲染结束 */
+/* 复选框 */
+checkbox .wx-checkbox-input {
+  border-radius: 50%;
+  height: 32rpx;
+  width: 32rpx;
+  margin-top: -4rpx;
+  border: 1rpx solid var(--themeColor);
+}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #fff;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  background-color: var(--themeColor);
+  border-radius: 50%;
+  border: 1rpx solid currentColor;
+}
+/* 工具栏开始 */
+.priceToolBar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 90rpx;
+  background-color: #f1f1f1;
+}
+.priceToolBar checkbox-group {
+  flex: 2;
+  padding-left: 20rpx;
+  line-height: 90rpx;
+}
+.priceToolBar .sumPrice {
+  flex: 4;
+  margin: 8rpx 18rpx;
+  text-align: right;
+}
+.priceToolBar .sumPrice .thePrice text {
+  font-weight: 600;
+  color: var(--themeColor);
+}
+.priceToolBar .sumPrice .otherPrice {
+  font-size: 24rpx;
+}
+.priceToolBar .toPay {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--themeColor);
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+}
+/* 工具栏结束 */
+page {
+  margin-bottom: 90rpx;
+}
