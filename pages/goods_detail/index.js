@@ -51,7 +51,8 @@ Page({
           goods_name: detailData.goods_name,
           goods_small_logo: detailData.goods_small_logo,
           goods_price: detailData.goods_price,
-          buy_num: 1
+          buy_num: 1,
+          checked: true
       })
       
       // 提示 添加成功

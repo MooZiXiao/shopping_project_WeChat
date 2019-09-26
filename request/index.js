@@ -59,7 +59,7 @@ export const openSetting = () => {
     })
 }
 
-// 用户收获地址
+// 用户收货地址
 export const chooseAddress = () => {
     return new Promise((resolve, reject) => {
         wx.chooseAddress({

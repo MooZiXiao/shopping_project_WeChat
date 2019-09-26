@@ -55,9 +55,9 @@
 }
 .cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContPriceWrap {
   display: flex;
+  justify-content: space-between;
 }
 .cartDataWrap .cartData .cartDataItem .cartDataItemCont .cartDataItemContPriceWrap .cartDataItemContPrice {
-  margin-right: 20%;
   font-weight: 600;
   color: var(--themeColor);
 }

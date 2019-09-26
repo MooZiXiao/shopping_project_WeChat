@@ -862,9 +862,9 @@ handleAddCart(){
 
 添加地址 + 地址显示 + 购物车数据结构渲染 + 工具栏 
 
-#### 8.2 收获地址逻辑 ####
+#### 8.2 收货地址逻辑 ####
 
-通过 API 来获得收获地址	--	wx.getSetting、wx.openSetting、wx.chooseAddress
+通过 API 来获得收货地址	--	wx.getSetting、wx.openSetting、wx.chooseAddress
 
 若是只用 wx.chooseAddress，当第一次获得通讯地址权限时，按取消后，再按则无法触发
 
@@ -899,7 +899,7 @@ export const openSetting = () => {
     })
 }
 
-// 用户收获地址
+// 用户收货地址
 export const chooseAddress = () => {
     return new Promise((resolve, reject) => {
         wx.chooseAddress({
@@ -916,11 +916,11 @@ export const chooseAddress = () => {
 
 cart/index.js 
 
-点击获得**收获地址**按钮
+点击获得**收货地址**按钮
 
 获得当前设置的状态，通过判断该状态是否等于 false, 是，则调用打开设置的异步方法
 
-调用获得用户收获地址的异步方法，设置渲染结构所需数据，赋值给设置接收的变量，并保存至本地
+调用获得用户收货地址的异步方法，设置渲染结构所需数据，赋值给设置接收的变量，并保存至本地
 
 ```js
 async handleGetAddress(){
@@ -933,7 +933,7 @@ async handleGetAddress(){
         if(auth === false){
             await openSetting()
         }
-        // 收获地址信息
+        // 收货地址信息
         const res2 = await chooseAddress()
         // 设置 详细收获地址
         res2.detailAddress = res2.provinceName + res2.cityName + res2.countyName + res2.detailInfo
@@ -962,6 +962,44 @@ onShow: function (options) {
     // 设置
     this.setData({
         shoppingCartData, address
+    })
+}
+```
+
+#### 8.3 计算总价及总数量 ####
+
+通过设置一个函数来计算总价及总数量 - getTotalPriceAndNum()
+
+在 onShow 调用该函数并传入购物车数据
+
+通过确认复选框的选中，来计算勾选了的总价及总数量
+
+```js
+/* 计算总价及总数 */
+getTotalPriceAndNum(cartData){
+    // 默认全选选中状态, 若一个未选中则全选不勾选
+    let isAllChecked = true
+    // 总价, 复选框选中状态的价格相加
+    let totalPrice = 0
+    // 总数, 复选框选中状态的数量相加
+    let totalNum = 0
+
+    // 遍历数据
+    cartData.forEach(v => {
+        // 是否选中
+        if(v.checked){
+            totalPrice += v.buy_num * v.goods_price
+            totalNum += v.buy_num
+        }else{
+            isAllChecked = false
+        }
+    })
+
+    // 赋值
+    this.setData({
+        totalPrice,
+        totalNum,
+        isAllChecked
     })
 }
 ```

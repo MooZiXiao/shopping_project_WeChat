@@ -8,10 +8,14 @@ Page({
   data: {
     // 购物车数据
     shoppingCartData: [],
-    // 收获地址信息
+    // 收货地址信息
     address: {},
-    // 收获详细地址
-    // detailAddress: ''
+    // 全选是否选中
+    isAllChecked: false,
+    // 总价
+    totalPrice: 0,
+    // 总数
+    totalNum: 0
   },
   /**
    * 生命周期函数--监听页面显示
@@ -24,6 +28,9 @@ Page({
     this.setData({
       shoppingCartData, address
     })
+
+    // 调用计算总价及数量的方法,传入数据
+    this.getTotalPriceAndNum(shoppingCartData)
   },
   /* 收货地址 */
   async handleGetAddress(){
@@ -38,7 +45,7 @@ Page({
       }
       // 收获地址信息
       const res2 = await chooseAddress()
-      // 设置 详细收获地址
+      // 设置 详细收货地址
       res2.detailAddress = res2.provinceName + res2.cityName + res2.countyName + res2.detailInfo
       // 赋值
       this.setData({
@@ -50,5 +57,32 @@ Page({
     catch(error){
       return
     }
+  },
+  /* 计算总价及总数 */
+  getTotalPriceAndNum(cartData){
+    // 默认全选选中状态, 若一个未选中则全选不勾选
+    let isAllChecked = true
+    // 总价, 复选框选中状态的价格相加
+    let totalPrice = 0
+    // 总数, 复选框选中状态的数量相加
+    let totalNum = 0
+
+    // 遍历数据
+    cartData.forEach(v => {
+      // 是否选中
+      if(v.checked){
+        totalPrice += v.buy_num * v.goods_price
+        totalNum += v.buy_num
+      }else{
+        isAllChecked = false
+      }
+    })
+
+    // 赋值
+    this.setData({
+      totalPrice,
+      totalNum,
+      isAllChecked
+    })
   }
 })
