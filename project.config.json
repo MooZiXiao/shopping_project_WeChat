@@ -22,7 +22,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.8.3",
-	"appid": "wxc3578f574eb84175",
+	"appid": "wx862aaaa52ed13af3",
 	"projectname": "shopping_project_WeChat",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -82,6 +82,20 @@
 					"id": -1,
 					"name": "支付页面",
 					"pathName": "pages/pay/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "授权页面",
+					"pathName": "pages/auth/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品搜索",
+					"pathName": "pages/search/index",
 					"scene": null
 				}
 			]

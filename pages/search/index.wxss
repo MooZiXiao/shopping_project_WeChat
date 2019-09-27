@@ -1,1 +1,42 @@
-/* pages/search/index.wxss */
+/* 搜索开始 */
+.productSearchWrap{
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx;
+}
+.productSearchWrap input{
+    flex: 1;
+    height: 60rpx;
+    padding-left: 15rpx;
+    background-color: #fff;
+}
+.productSearchWrap button{
+    width: 20%;
+    height: 60rpx;
+    line-height: 60rpx;
+    font-size: 26rpx;
+    margin-left: 20rpx;
+}
+/* 搜索结束 */
+/* 搜索列表开始 */
+.productSearchCont{
+    height: calc(100vh - 120rpx);
+    overflow: auto;
+    margin: 0 20rpx 0;
+    background-color: #f1f1f1;
+}
+.productSearchCont navigator{
+    font-size: 36rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 10rpx 15rpx;
+    border-bottom: solid 1px #f1b5b5;
+}
+/*.productSearchCont navigator:last-child{
+    border-bottom: 0
+}*/
+/* 搜索列表结束 */
+page{
+    background-color: #f1b5b5;
+}

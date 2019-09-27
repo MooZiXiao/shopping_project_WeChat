@@ -55,4 +55,12 @@ Page({
       totalNum
     })
   },
+  /* 支付 */
+  handleToPay(){
+    // 需判断用户权限
+    // 跳到用户授权页
+    wx.navigateTo({
+      url: '/pages/auth/index'
+    })
+  }
 })

@@ -1185,3 +1185,68 @@ async handleCartPay(){
 
 #### 9.1 支付页面结构 ####
 
+在监听页面显示事件中，通过过滤缓存中的数据 **checked === true** 获得支付页面商品数据
+
+
+
+### 10 商品搜索 ###
+
+使用 bindinput 获得 输入框输入的内容
+
+调用搜索接口，由于使用 async-await 异步调用接口，async 不能加在 bindinput绑定的事件（inputSearch），否则会出错，所以 封装个方法（getSearchData）来调用搜索接口
+
+通过 bindinput绑定的事件（inputSearch）获得 输入的内容，使用封装调用搜索接口的方法（getSearchData）传入 输入的内容参数
+
+设置个防抖变量（data外），通过一次性定时器来处理防抖bug
+
+设置个布尔值变量（isShowCancel），来设置 取消按钮的显示与隐藏
+
+```js
+data: {
+    // 搜索数据
+    searchData: [],
+    // 文本框数据
+    inputVal: '',
+    // 取消按钮
+    isShowCancel: false
+},
+// 防抖变量
+timeId: -1,
+/* 输入框事件 */
+inputSearch(e){
+    // console.log(e)
+    // 获得输入框数据
+    const {value} = e.detail
+    // 调用接口
+    // 当输入框有空格时
+    if(!value.trim()){
+      return
+    }
+    // 显示按钮
+    this.setData({
+      isShowCancel: true
+    })
+    // 防抖
+    clearTimeout(this.timeId)
+    // 设置定时
+    this.timeId = setTimeout(() => {
+      this.getSearchData(value)
+    }, 1000)
+},
+/* 调用接口函数 */
+async getSearchData(value){
+    const res = await request({url: '/goods/qsearch', data: {query: value}})
+    this.setData({
+      searchData: res
+    })
+},
+/* 点击取消 */
+handleCancel(){
+    this.setData({
+      searchData: [],
+      inputVal: '',
+      isShowCancel: false
+    })
+}
+```
+

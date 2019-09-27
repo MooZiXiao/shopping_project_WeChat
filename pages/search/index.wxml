@@ -1,2 +1,11 @@
-<!--pages/search/index.wxml-->
-<text>pages/search/index.wxml</text>
+<!-- 搜索部分开始 -->
+<view class="productSearchWrap">
+    <input type="text" value='{{inputVal}}' bindinput="inputSearch" />
+    <button wx:if="{{isShowCancel === true}}" bindtap="handleCancel">取消</button>
+</view>
+<!-- 搜索部分结束 -->
+<!-- 搜索列表开始 -->
+<view class="productSearchCont">
+    <navigator wx:for="{{searchData}}" wx:key="goods_id" url="/pages/goods_detail/index?goods_id={{item.goods_id}}">{{item.goods_name}}</navigator>
+</view>
+<!-- 搜索列表结束 -->

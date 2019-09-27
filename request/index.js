@@ -96,3 +96,19 @@ export const showToast = (params) => {
         }) 
     })
 }
+
+// 获取登录凭证
+export const login = () => {
+    return new Promise((resolve, reject) => {
+        wx.login({
+            timeout:10000,
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        });
+           
+    })
+}
