@@ -1,8 +1,14 @@
 <!-- 轮播图开始 -->
 <view class="detailSwiper">
-    <swiper autoplay indicator-dots circular bindtap="handleTap">
+    <swiper wx:if="{{detailData.pics.length !== 0}}" autoplay indicator-dots circular bindtap="handleTap">
         <swiper-item wx:for="{{detailData.pics}}" wx:key="pics_id">
-            <image mode="widthFix" src="{{item.pics_mid}}" data-current="{{item.pics_mid}}"></image>
+            <image mode="widthFix" src="{{item.pics_mid || 'https://tva4.sinaimg.cn/large/005R6Otmgy1g7dtas1yzcj306505v3ye.jpg'}}" data-current="{{item.pics_mid}}"></image>
+        </swiper-item>
+    </swiper>
+    
+    <swiper wx:else>
+        <swiper-item>
+            <image mode="widthFix" src="https://tva4.sinaimg.cn/large/005R6Otmgy1g7dtas1yzcj306505v3ye.jpg"></image>
         </swiper-item>
     </swiper>
 </view>

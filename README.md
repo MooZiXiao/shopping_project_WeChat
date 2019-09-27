@@ -1181,3 +1181,7 @@ async handleCartPay(){
  wx:hidden="{{totalNum === 0 ? 'disabled' : 'disabled=false'}}"
 ```
 
+### 9 支付 ###
+
+#### 9.1 支付页面结构 ####
+

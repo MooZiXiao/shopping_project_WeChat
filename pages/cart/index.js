@@ -1,6 +1,6 @@
 // 引入
 import regeneratorRuntime from '../../lib/runtime/runtime.js';
-import {request, getSetting, openSetting, chooseAddress, showModal, showToast} from '../../request/index.js'
+import {getSetting, openSetting, chooseAddress, showModal, showToast} from '../../request/index.js'
 Page({
   /**
    * 页面的初始数据

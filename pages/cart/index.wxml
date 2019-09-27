@@ -19,16 +19,18 @@
     <!-- 商品标题 -->
     <view class="cartDataTitle">购物车</view>
     <!-- 商品数据 -->
-    <view class="cartData" wx:if="{{totalNum > 0}}">
+    <view class="cartData" wx:if="{{shoppingCartData.length !== 0}}">
         <view class="cartDataItem" wx:for="{{shoppingCartData}}" wx:key="goods_id">
             <checkbox-group bindchange="handleCheckBox" data-index="{{index}}"><checkbox checked="{{item.checked}}"></checkbox></checkbox-group>
             <!-- 图片 -->
-            <view class="cartDataItemImg">
+            <navigator url="/pages/goods_detail/index?goods_id={{item.id}}" class="cartDataItemImg">
                 <image mode="widthFix" src="{{item.goods_small_logo}}"></image>
-            </view>
+            </navigator>
             <!-- 内容信息 -->
             <view class="cartDataItemCont">
-                <view class="cartDataItemContTitle">{{item.goods_name}}</view>
+                <view class="cartDataItemContTitle">
+                    <navigator url="/pages/goods_detail/index?goods_id={{item.id}}">{{item.goods_name}}</navigator>
+                </view>
                 <view class="cartDataItemContPriceWrap">
                     <view class="cartDataItemContPrice">￥ {{item.goods_price}}</view>
                     <view class="cartDataItemContPriceBtn">
