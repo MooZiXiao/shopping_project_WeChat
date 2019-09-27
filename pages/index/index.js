@@ -34,6 +34,7 @@ Page({
   getFloorData(){
     request({url: '/home/floordata'})
     .then((res) => {
+      console.log(res)
       this.setData({
         floorData: res
       })

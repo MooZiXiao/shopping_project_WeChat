@@ -1187,6 +1187,46 @@ async handleCartPay(){
 
 在监听页面显示事件中，通过过滤缓存中的数据 **checked === true** 获得支付页面商品数据
 
+#### 9.2 授权页面 ####
+
+使用 button 设置 `open-type='getUserInfo'`  结合 `bindgetuserinfo` 获取到用户信息，获得调用后台接口所需要的参数
+
+调用 `wx.login(Object object)` 接口获取登录凭证（code）
+
+调用后台接口，通过 post 方式，传入对应的参数，获得 token，并将 token 存到缓存中
+
+```js
+/* 点击授权 */
+handleGetUserInfo(e){
+    this.wxLogin(e)
+},
+/* 登录凭证调用 */
+async wxLogin(e){
+    // console.log(e)
+    // 获取用户信息
+    const {encryptedData,rawData,iv,signature} = e.detail
+    // 获得登录返回的code
+    const {code} = await login()
+    // 调用接口所需参数存入对象中
+    let queryParams = {
+        encryptedData,rawData,iv,signature,code
+    }
+    // 调用接口传入以上参数返回token
+    const {token} = await request({
+        url: '/users/wxlogin',
+        method: 'post',
+        data: queryParams
+    })
+
+    // 存储到缓存
+    wx.setStorageSync('token', token);
+    // 返回上一页
+    wx.navigateBack({
+        delta: 1
+    });
+}
+```
+
 
 
 ### 10 商品搜索 ###

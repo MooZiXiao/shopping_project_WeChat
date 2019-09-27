@@ -1,1 +1,1 @@
-<button open-type="getUserInfo" bindtap="handleGetUserInfo">授权</button>
+<button open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo">授权</button>

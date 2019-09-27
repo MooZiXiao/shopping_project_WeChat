@@ -60,11 +60,17 @@ Page({
    */
   onLoad: function (options) {
     // 获得地址参数
+    if(options.query){
+      this.queryParams.query = options.query
+    }
     // console.log(options)
-    let cid = options.cid
-    // 赋值参数的cid
-    this.queryParams.cid = cid
-    this.getGoodData(cid)
+    if(options.cid){
+      let cid = options.cid
+      // 赋值参数的cid
+      this.queryParams.cid = cid
+    }
+
+    this.getGoodData()
   },
   // 上拉触底
   onReachBottom: function() {
