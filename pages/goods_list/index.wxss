@@ -22,7 +22,7 @@
   justify-content: space-around;
   margin-right: 30rpx;
 }
-.goodsItem navigator .goodsItemCont view.goodsItemContTitle {
+.goodsItem navigator .goodsItemCont .goodsItemContTitle {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;

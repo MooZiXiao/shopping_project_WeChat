@@ -87,3 +87,12 @@ export const showModal = (params) => {
         }); 
     })
 }
+
+// 提示
+export const showToast = (params) => {
+    return new Promise((resolve, reject) => {
+        wx.showToast({
+            ...params
+        }) 
+    })
+}

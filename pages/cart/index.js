@@ -1,6 +1,6 @@
 // 引入
 import regeneratorRuntime from '../../lib/runtime/runtime.js';
-import {request, getSetting, openSetting, chooseAddress, showModal} from '../../request/index.js'
+import {request, getSetting, openSetting, chooseAddress, showModal, showToast} from '../../request/index.js'
 Page({
   /**
    * 页面的初始数据
@@ -109,7 +109,6 @@ Page({
   /* 全选 */
   handleAllCheckBox(){
     let {shoppingCartData, isAllChecked} = this.data
-
     // 遍历数据
     shoppingCartData.forEach(v => {
       v.checked = !isAllChecked
@@ -159,5 +158,30 @@ Page({
     wx.setStorageSync("shoppingCartData", shoppingCartData)
     // 重新计算
     this.getTotalPriceAndNum(shoppingCartData)
+  },
+  /* 结算 */
+  async handleCartPay(){
+    const {totalNum, address} = this.data
+    // 判断购物数据是否为空
+    if(totalNum === 0){
+      await showToast({
+        title: '您还没有选购商品噢...',
+        icon: 'none'
+      })
+      return
+    }
+    // 判断收货地址是否填写
+    if(address === ''){
+      await showToast({
+        title: '您还没有增加收货地址噢...',
+        icon: 'none'
+      })
+      return
+    }
+
+    // 跳转
+    wx.navigateTo({
+      url: '/pages/pay/index',
+    })
   }
 })

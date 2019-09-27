@@ -15,11 +15,11 @@
 </view>
 <!-- 添加收货地址结束 -->
 <!-- 购物车数据渲染开始 -->
-<view class="cartDataWrap" wx:if="{{shoppingCartData}}">
-    <view class="cartData">
-        <!-- 商品标题 -->
-        <view class="cartDataTitle">购物车</view>
-        <!-- 商品数据 -->
+<view class="cartDataWrap">
+    <!-- 商品标题 -->
+    <view class="cartDataTitle">购物车</view>
+    <!-- 商品数据 -->
+    <view class="cartData" wx:if="{{totalNum > 0}}">
         <view class="cartDataItem" wx:for="{{shoppingCartData}}" wx:key="goods_id">
             <checkbox-group bindchange="handleCheckBox" data-index="{{index}}"><checkbox checked="{{item.checked}}"></checkbox></checkbox-group>
             <!-- 图片 -->
@@ -40,18 +40,21 @@
             </view>
         </view>
     </view>
+    <!-- 购物车为空 -->
+    <view class="cartDataWrapTip" wx:else>
+        <image mode="widthFix" src="http://hbimg.b0.upaiyun.com/e1b1467beea0a9c7d6a56b32bac6d7e5dcd914f7c3e6-YTwUd6_fw658"></image>
+    </view>
 </view>
-<view class="cartDataWrapTip" wx:else>您的购物车空空如也...</view>
 <!-- 购物车数据渲染结束 -->
 <!-- 结算工具栏开始 -->
 <view class="priceToolBar">
-    <checkbox-group bindchange="handleAllCheckBox"><checkbox checked="{{isAllChecked}}">全选</checkbox></checkbox-group>
+    <checkbox-group bindchange="handleAllCheckBox"><checkbox checked="{{isAllChecked}}" disabled="{{totalNum === 0 ? 'true' : 'false'}}">全选</checkbox></checkbox-group>
     <view class="sumPrice">
         <view class="thePrice">
             合计：<text>￥ {{totalPrice}}</text>
         </view>
         <view class="otherPrice"><text></text><text>包含运费</text></view>
     </view>
-    <view class="toPay">结算({{totalNum}})</view>
+    <view class="toPay" bindtap="handleCartPay">结算({{totalNum}})</view>
 </view>
 <!-- 结算工具栏结束 -->

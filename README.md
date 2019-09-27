@@ -1138,3 +1138,46 @@ this.setData({
 })
 ```
 
+#### 8.7 结算处理 ####
+
+点击 结算 按钮
+
+判断购买总数等于0情况处理，即用户未添加商品，给予提示
+
+判断地址等于空情况处理，即用户未填收货地址，给予提示
+
+前边两种情况都不符合，跳转至结算页面
+
+```js
+async handleCartPay(){
+    const {totalNum, address} = this.data
+    // 判断购物数据是否为空
+    if(totalNum === 0){
+        await showToast({
+            title: '您还没有选购商品噢...',
+            icon: 'none'
+        })
+        return
+    }
+    // 判断收货地址是否填写
+    if(address === ''){
+        await showToast({
+            title: '您还没有增加收货地址噢...',
+            icon: 'none'
+        })
+        return
+    }
+
+    // 跳转
+    wx.navigateTo({
+        url: '/pages/pay/index',
+    })
+}
+```
+
+全选按钮处理：当购买总数等于0时，禁止点击
+
+```html
+ wx:hidden="{{totalNum === 0 ? 'disabled' : 'disabled=false'}}"
+```
+

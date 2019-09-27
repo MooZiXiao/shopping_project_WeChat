@@ -11,7 +11,7 @@
 }
 /* 添加收货地址结束 */
 /* 购物车数据渲染开始 */
-.cartDataWrap .cartData .cartDataTitle {
+.cartDataWrap .cartDataTitle {
   padding: 20rpx;
   font-size: 30rpx;
   font-weight: 600;
