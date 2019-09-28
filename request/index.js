@@ -9,6 +9,16 @@ export const request = (params) => {
         mask: true
     })
 
+    // 设置 请求头 
+    // 若 params.header 为undefined, 展开 undefied 为空对象
+    let header = {...params.header}
+    // 获得 token
+    const token = wx.getStorageSync('token')
+    // 查找 url 是否包含 /my,有则加入token
+    if(params.url.includes('/my/')){
+        header = { ...params.header, ...{Authorization: token}}
+    }
+
     // promise + 调用
     return new Promise((resolve, reject) => {
         // 设置基准路径
@@ -17,6 +27,7 @@ export const request = (params) => {
             ...params,
             // 覆盖url
             url: baseUrl + params.url,
+            header,
             success: (res) => {
                 resolve(res.data.message)
             },
@@ -92,16 +103,35 @@ export const showModal = (params) => {
 export const showToast = (params) => {
     return new Promise((resolve, reject) => {
         wx.showToast({
-            ...params
-        }) 
+            ...params,
+            success: (result) => {
+                resolve(result)
+            }
+        })
     })
 }
-
+  
 // 获取登录凭证
 export const login = () => {
     return new Promise((resolve, reject) => {
         wx.login({
             timeout:10000,
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        });
+           
+    })
+}
+
+// 微信支付 api
+export const requestPayment = (params) => {
+    return new Promise((resolve, reject) => {
+        wx.requestPayment({
+            ...params,
             success: (result) => {
                 resolve(result)
             },

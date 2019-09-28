@@ -25,6 +25,9 @@
 	 |	  |--- iconfont.wxss（字体图标样式）
 	 |--- request （调用接口封装）
 	 |	  |--- index.js
+     |--- lib
+	 |	  |--- runtime
+	 |	  	   |--- runtime.js
 ```
 
 ### 2 自定义 tabBar ###
@@ -1227,7 +1230,167 @@ async wxLogin(e){
 }
 ```
 
+#### 9.3 支付页面-支付逻辑 ####
 
+点击 支付按钮 调用 封装的支付逻辑 的方法
+
+支付逻辑方法 - wxTopay （async-await + try-catch）
+
+1. 判断是否存在 token, 否则 跳转至 授权页
+
+2. 创建订单 - 调用创建订单接口，获得订单编号
+
+   2.1 获得创建订单所需的参数，将所需的参数存入一个对象中
+
+   2.2 调用创建订单接口，通过 post 方式，传入该对象
+
+3. 调用预支付订单接口，传入 获得的  --  订单编号，获得返回的对象参数（pay）
+
+4. 调用微信支付api，传入 获得的 对象参数（pay）
+
+5. 调用查看订单的支付状态接口，传入 --  订单编号，返回一个提示信息（message)
+
+6. 提示showToast
+
+7. 删除在缓存中支付了的商品数据
+
+   7.1 可根据 filter方法，筛选缓存中 checked === false 的数据
+
+   7.2 重置缓存中的数据
+
+8. 1 跳转至订单页
+
+```js
+/* 支付逻辑 */
+async wxTopay(){
+    try {
+      // 需判断用户权限
+      // 用户是否授权
+      // 获得 token, 判断 token
+      const token = wx.getStorageSync('token')
+      // 不存在 token
+      if(!token){
+        // 跳到用户授权页
+        wx.navigateTo({
+          url: '/pages/auth/index'
+        })
+      }
+      // 创建订单
+      // 获得创建订单所需要的参数
+      const {detailAddress} = this.data.address
+      const {totalPrice} = this.data
+      // const {id,buy_num,goods_price} = this.data.shoppingCartData
+      let goods = []
+      this.data.shoppingCartData.forEach(v => {
+        goods.push({
+          goods_id: v.id,
+          goods_number: v.buy_num,
+          goods_price: v.goods_price
+        })
+      })
+
+      let orderParams = {
+        order_price: totalPrice,
+        consignee_addr: detailAddress,
+        goods
+      }
+      // console.log(orderParams)
+      // 调用接口, 获得订单编号
+      const {order_number} = await request({
+        url: '/my/orders/create',
+        method: 'post',
+        data: orderParams
+      })
+      // return
+      // 预支付订单接口,获得返回的对象参数
+      const {pay} = await request({
+        url: '/my/orders/req_unifiedorder',
+        method: 'post',
+        data: {order_number}
+      })
+      // 调用微信支付api
+      await requestPayment(pay)
+      // 支付成功后的操作，查询订单的支付状态
+      const message = await request({
+        url: '/my/orders/chkOrder',
+        method: 'post',
+        data: {order_number}
+      })
+      // console.log(message)
+      // 给出提示
+      await showToast({title: message, mask: true})
+
+      // 删除缓存中的对应支付的数据
+      // 获得缓存数据
+      let shoppingCartData = wx.getStorageSync('shoppingCartData')
+      shoppingCartData = shoppingCartData.filter(v => {
+        return !v.checked
+      })
+      // 重新存入缓存
+      wx.setStorageSync('shoppingCartData', shoppingCartData);
+
+      // 跳转至订单页
+      wx.navigateTo({
+        url: '/pages/order/index'
+      })
+    } catch (error) {
+      console.log(error)
+    }
+}
+```
+
+由于调用以上的后台接口都需要在请求头传入token，且它们的 url 有个共同点，即都包含着 ‘/my/’
+
+​	 /my/orders/create
+
+​	/my/orders/req_unifiedorder
+
+​	/my/orders/chkOrder
+
+所以可以在封装的 request.js 中设置，若 url 存在 ‘/my/’，则加入请求头
+
+```js
+export const request = (params) => {
+    requestTwice ++
+    // 加载
+    wx.showLoading({
+        title: '数据加载中...',
+        mask: true
+    })
+
+    // 设置 请求头 
+    // 若 params.header 为undefined, 展开 undefied 为空对象
+    let header = {...params.header}
+    // 获得 token
+    const token = wx.getStorageSync('token')
+    // 查找 url 是否包含 /my,有则加入token
+    if(params.url.includes('/my/')){
+        header = { ...params.header, ...{Authorization: token}}
+    }
+
+    // promise + 调用
+    return new Promise((resolve, reject) => {
+        // 设置基准路径
+        const baseUrl = 'https://api.zbztb.cn/api/public/v1'
+        wx.request({
+            ...params,
+            // 覆盖url
+            url: baseUrl + params.url,
+            header,
+            success: (res) => {
+                resolve(res.data.message)
+            },
+            fail: (err) => {
+                reject(err)
+            },
+            complete: () => {
+                requestTwice --;
+                requestTwice === 0 && wx.hideLoading()
+            }
+        })
+    })
+}
+```
 
 ### 10 商品搜索 ###
 

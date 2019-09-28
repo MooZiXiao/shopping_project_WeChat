@@ -50,7 +50,7 @@
 <!-- 购物车数据渲染结束 -->
 <!-- 结算工具栏开始 -->
 <view class="priceToolBar">
-    <checkbox-group bindchange="handleAllCheckBox"><checkbox checked="{{isAllChecked}}" disabled="{{totalNum === 0 ? 'true' : 'false'}}">全选</checkbox></checkbox-group>
+    <checkbox-group bindchange="handleAllCheckBox"><checkbox checked="{{isAllChecked}}" disabled="{{shoppingCartData.length === 0 ? true : false}}">全选</checkbox></checkbox-group>
     <view class="sumPrice">
         <view class="thePrice">
             合计：<text>￥ {{totalPrice}}</text>

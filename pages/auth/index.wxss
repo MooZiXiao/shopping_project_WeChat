@@ -1,1 +1,15 @@
-/* pages/auth/index.wxss */
+button{
+    position:fixed;
+    left: 50%;
+    top: 50%;
+    width: 30vw;
+    height: 30vw;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--themeColor);
+    color: #fff;
+    font-weight: 600;
+}
