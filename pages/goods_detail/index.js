@@ -1,6 +1,6 @@
 // 引入
 import regeneratorRuntime from '../../lib/runtime/runtime.js';
-import {request} from '../../request/index.js';
+import {request, showToast} from '../../request/index.js';
 Page({
 
   /**
@@ -8,7 +8,9 @@ Page({
    */
   data: {
     // 商品详情数据
-    detailData: []
+    detailData: [],
+    // 是否收藏
+    isCollect: false
   },
   /* 设置调用详情的接口方法 */
   async getDetailData(goods_id){
@@ -16,6 +18,18 @@ Page({
     // console.table(res.data.message)
     this.setData({
       detailData: res
+    })
+    
+    // 是否收藏
+    // 获得该商品详情的数据
+    let {detailData} = this.data
+    // 获得缓存中的收藏的数据
+    let localCollectData = wx.getStorageSync('collect') || []
+    // 判断缓存中是否存在该商品详情的数据
+    let index = localCollectData.findIndex(v => v.goods_id === detailData.goods_id)
+    
+    this.setData({
+      isCollect: index === -1 ? false : true
     })
   },
   /* 图预览 */
@@ -71,6 +85,32 @@ Page({
     }
     // 存储至本地
     wx.setStorageSync('shoppingCartData', cartData)
+  },
+  /* 点击收藏 */
+  async handleCollect(){
+    // 获得该商品详情的数据
+    let {detailData} = this.data
+    // 获得缓存中的收藏的数据
+    let localCollectData = wx.getStorageSync('collect') || []
+    // 判断缓存中是否存在该商品详情的数据
+    let index = localCollectData.findIndex(v => v.goods_id === detailData.goods_id)
+    
+    if(index !== -1){
+      // 存在
+      localCollectData.splice(index, 1)
+      // 提示
+      await showToast({title: '取消收藏', icon: 'none', mask: true})
+      // 未收藏显示
+      this.setData({isCollect: false})
+    }else{
+      localCollectData.push(detailData)
+      // 提示
+      await showToast({title: '收藏成功', mask: true})
+      // 收藏显示
+      this.setData({isCollect: true})
+    }
+    // 将对应商品存入缓存
+    wx.setStorageSync('collect', localCollectData)
   },
   /**
    * 生命周期函数--监听页面加载

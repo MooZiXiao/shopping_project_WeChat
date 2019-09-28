@@ -46,6 +46,9 @@
 .detailTitle .detailCollect .collectIcon {
   font-size: 36rpx;
 }
+.detailTitle .detailCollect .icon-shoucang1 {
+  color: orange;
+}
 /* 商品名字及收藏结束 */
 /* 图文详情开始 */
 .detailInfo .detailInfoTitle {

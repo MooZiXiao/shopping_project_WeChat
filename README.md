@@ -859,6 +859,122 @@ handleAddCart(){
 }
 ```
 
+#### 7.6 收藏功能 ####
+
+加入点击收藏事件
+
+收藏的逻辑是：
+
+**若该商品在缓存中已收藏，则移除该商品在缓存中的数据（即取消收藏）**
+
+**若未收藏，则将该商品数据追加到缓存中**
+
+1. 将该商品加到缓存中（collect）
+
+   1.1 先获得缓存中（collect）的数据，及该商品数据
+
+   1.2 根据 goods_id 找出缓存中是否包含该商品数据的索引
+
+   1.3 判断 索引
+
+   ​	1.3.1 索引 === -1（不存在）则为收藏，需将商品追加到缓存中，并提示
+
+   ​	1.3.2 否则是取消收藏操作，根据 索引 移除在缓存中该商品数据，并提示
+
+   ```js
+   /* 点击收藏 */
+   async handleCollect(){
+       // 获得该商品详情的数据
+       let {detailData} = this.data
+       // 获得缓存中的收藏的数据
+       let localCollectData = wx.getStorageSync('collect') || []
+       // 判断缓存中是否存在该商品详情的数据
+       let index = localCollectData.findIndex(v => v.goods_id === detailData.goods_id)
+   
+       if(index !== -1){
+           // 存在
+           localCollectData.splice(index, 1)
+           // 提示
+           await showToast({title: '取消收藏', icon: 'none', mask: true})
+       }else{
+           localCollectData.push(detailData)
+           // 提示
+           await showToast({title: '收藏成功', mask: true})
+       }
+       // 将对应商品存入缓存
+       wx.setStorageSync('collect', localCollectData)
+   }
+   ```
+
+2. 设置收藏图标是否高亮显示
+
+   2.1 设置一个布尔值变量 isCollect: false
+
+   2.2 在对应图标根据 布尔值变量切换样式的类选择器
+
+   2.3 在点击收藏事件中
+
+   ​	2.3.1 当索引 === -1 设置 布尔值变量为 true
+
+   ​	2.3.2 否则，设置 布尔值变量为 false
+
+   ​	2.3.3 设置 收藏是否高亮显示，页面重加载时的正确显示
+
+   ​	在 调用详情的接口方法，判断本地是否存在该商品数据，是则高亮，否则相反
+
+   **页面设置**
+
+   ```html
+   <view class="detailCollect" bindtap='handleCollect'>
+       <text class="iconfont {{isCollect ? 'icon-shoucang1' : 'icon-shoucang'}} collectIcon"></text>
+       <text>收藏</text>
+   </view>
+   ```
+
+   **点击收藏事件**
+
+   ```js
+   if(index !== -1){
+       // 存在
+       localCollectData.splice(index, 1)
+       // 提示
+       await showToast({title: '取消收藏', icon: 'none', mask: true})
+       // 未收藏显示
+       this.setData({isCollect: false})
+   }else{
+       localCollectData.push(detailData)
+       // 提示
+       await showToast({title: '收藏成功', mask: true})
+       // 收藏显示
+       this.setData({isCollect: true})
+   }
+   ```
+
+   **调用详情的方法**
+
+   ```js
+    /* 设置调用详情的接口方法 */
+   async getDetailData(goods_id){
+       const res = await request({url: '/goods/detail', data:{goods_id}})
+       // console.table(res.data.message)
+       this.setData({
+           detailData: res
+       })
+   
+       // 是否收藏
+       // 获得该商品详情的数据
+       let {detailData} = this.data
+       // 获得缓存中的收藏的数据
+       let localCollectData = wx.getStorageSync('collect') || []
+       // 判断缓存中是否存在该商品详情的数据
+       let index = localCollectData.findIndex(v => v.goods_id === detailData.goods_id)
+   
+       this.setData({
+           isCollect: index === -1 ? false : true
+       })
+   }
+   ```
+
 ### 8 购物车 ###
 
 #### 8.1 购物车页面结构 ####
@@ -1386,6 +1502,39 @@ export const request = (params) => {
             complete: () => {
                 requestTwice --;
                 requestTwice === 0 && wx.hideLoading()
+            }
+        })
+    })
+}
+```
+
+#### 9.4 点击支付遇到的bug ####
+
+在 request.js 中，封装的 showToast 方法，没有设置成功时的回调
+
+在扫完支付二维码时，提示了支付成功后，并没有执行提示下面的代码
+
+**没有加成功时的回调**
+
+```js
+export const showToast = (params) => {
+    return new Promise((resolve, reject) => {
+        wx.showToast({
+            ...params
+        })
+    })
+}
+```
+
+**修改**
+
+```js
+export const showToast = (params) => {
+    return new Promise((resolve, reject) => {
+        wx.showToast({
+            ...params,
+            success: (result) => {
+                resolve(result)
             }
         })
     })

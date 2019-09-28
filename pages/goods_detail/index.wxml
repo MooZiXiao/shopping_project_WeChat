@@ -19,8 +19,8 @@
 <!-- 商品名字及收藏开始 -->
 <view class="detailTitle">
     <view class="detailName">{{detailData.goods_name}}</view>
-    <view class="detailCollect">
-        <text class="iconfont icon-shoucang collectIcon"></text>
+    <view class="detailCollect" bindtap='handleCollect'>
+        <text class="iconfont {{isCollect ? 'icon-shoucang1' : 'icon-shoucang'}} collectIcon"></text>
         <text>收藏</text>
     </view>
 </view>
