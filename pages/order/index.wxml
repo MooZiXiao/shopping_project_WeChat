@@ -1,2 +1,17 @@
-<!--pages/order/index.wxml-->
-<text>pages/order/index.wxml</text>
+<!-- 自定义tab开始 -->
+<goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="handleTabChange"></goodsTab>
+<view class="tabContent">
+    <view wx:if="{{currentIndex === 0}}">
+        0
+    </view>
+    <view wx:elif="{{currentIndex === 1}}">
+        1
+    </view>
+    <view wx:elif="{{currentIndex === 2}}">
+        2
+    </view>
+    <view wx:else>
+        3
+    </view>
+</view>
+<!-- 自定义tab结束 -->
