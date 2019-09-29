@@ -1,9 +1,9 @@
 <view class="userWrap">
     <!-- 登录 -->
     <view class="userImgWrap">
-        <image class="userImg" src=""></image>
-    <button style="background: url('http://img4.imgtn.bdimg.com/it/u=503942018,2982083750&fm=26&gp=0.jpg') no-repeat; background-size: 18vw 18vw;" open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo"></button>
-        <text class="userName">您未登录，请点击头像登录...</text>
+        <image class="userImg" src="{{userInfo.avatarUrl}}"></image>
+    <button style="background: url({{ userInfo.avatarUrl || 'http://img4.imgtn.bdimg.com/it/u=503942018,2982083750&fm=26&gp=0.jpg'}}) no-repeat; background-size: 18vw 18vw;" open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo"></button>
+        <text class="userName">{{ userInfo.nickName || '您未登录，请点击头像登录...'}}</text>
     </view>
     <view class="userOthers">
         <!-- 导航 -->
@@ -13,7 +13,7 @@
                 <text>收藏的店铺</text>
             </navigator>
             <navigator url="/pages/collect/index" class="collect">
-                <text>0</text>
+                <text>{{collect.length || 0}}</text>
                 <text>收藏的商品</text>
             </navigator>
             <navigator class="collect">
