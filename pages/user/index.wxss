@@ -85,9 +85,14 @@
 .userWrap .userOthers .ToShare {
   padding: 20rpx 0;
   background-color: #fff;
-  text-indent: 20rpx;
   font-size: 24rpx;
+  text-indent: 20rpx;
   border-bottom: solid 1rpx #e4bdbd;
+}
+.userWrap .userOthers .userContact {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20rpx;
 }
 .userWrap .userOthers .ToShare {
   margin-top: 20rpx;

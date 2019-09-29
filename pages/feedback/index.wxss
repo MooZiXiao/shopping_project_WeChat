@@ -1,1 +1,31 @@
-/* pages/feedback/index.wxss */
+.tabContent {
+  margin: 20rpx;
+}
+.tabContent .questionType .questionTypeItemWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tabContent .questionType .questionTypeItemWrap .questionTypeItem {
+  width: 31%;
+  padding: 12rpx 20rpx 12rpx 0;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  background-color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+}
+.tabContent .questionType .questionTypeItemWrap .questionTypeItem:nth-child(3n) {
+  margin-right: 0;
+}
+.tabContent .questionContentWrap .questionContent {
+  margin: 40rpx 0 20rpx;
+}
+.tabContent .questionContentWrap .questionContent textarea {
+  width: calc(100vw - 70rpx);
+  height: 40vh;
+  padding: 15rpx;
+  background-color: #fff;
+}
+page {
+  background-color: #f1f1f1;
+}

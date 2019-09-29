@@ -1,0 +1,39 @@
+.tabContent {
+    margin: 20rpx;
+    .questionType {
+        .questionTypeTitle {
+
+        }
+
+        .questionTypeItemWrap {
+            display: flex;
+            flex-wrap: wrap;
+            .questionTypeItem{
+                width: 31%;
+                padding: 12rpx 20rpx 12rpx 0;
+                margin-top: 20rpx;
+                margin-right: 20rpx;
+                background-color: #fff;
+                text-align: center;
+                box-sizing: border-box;
+                &:nth-child(3n){
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    .questionContentWrap{
+        .questionContent{
+            margin: 40rpx 0 20rpx;
+            textarea{
+                width: ~'calc(100vw - 70rpx)';
+                height: 40vh;
+                padding: 15rpx;
+                background-color: #fff;
+            }
+        }
+    }
+}
+page{
+    background-color: #f1f1f1
+}

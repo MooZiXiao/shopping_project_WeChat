@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "goodsTab": "../../components/goodsTab/index"
+  },
+  "navigationBarTitleText": "用户反馈"
 }

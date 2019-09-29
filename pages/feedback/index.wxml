@@ -1,2 +1,19 @@
-<!--pages/feedback/index.wxml-->
-<text>pages/feedback/index.wxml</text>
+<goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="getTabIndex"></goodsTab>
+<view class="tabContent">
+    <view wx:if="{{currentIndex === 0}}">
+        <view class="questionType">
+            <view class="questionTypeTitle">问题种类</view>
+            <view class="questionTypeItemWrap">
+                <view class="questionTypeItem" wx:for="{{questionTypeData}}" wx:key="index">{{item.text}}</view>
+            </view>
+        </view>
+        <view class="questionContentWrap">
+            <view class="questionContent">
+                <textarea placeholder="请描述一下您的问题..."></textarea>
+            </view>
+
+            <button >提交</button>
+        </view>
+    </view>
+    <view wx:else>1</view>
+</view>

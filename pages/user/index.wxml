@@ -51,8 +51,8 @@
         <view class="userAddress">
             收货地址管理
         </view>
-        <view class="userContact">联系客服</view>
-        <view class="userFeedBack">意见反馈</view>
+        <view class="userContact"><text>联系客服</text><text>400-618-4000</text></view>
+        <navigator url="/pages/feedback/index" class="userFeedBack">意见反馈</navigator>
         <view class="aboutUs">关于我们</view>
         <view class="ToShare">把应用推荐给其他人</view>
     </view>
