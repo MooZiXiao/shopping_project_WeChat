@@ -1,1 +1,24 @@
-/* pages/order/index.wxss */
+.tabContent{
+    /* height: calc(100vh - 120rpx); */
+}
+.orderItemWrap{
+}
+.orderItem{
+    padding: 0 20rpx 20rpx;
+    border-top: solid 1rpx #ccc;
+    padding-top: 20rpx;
+}
+.orderItem:last-child{
+    border-bottom: solid 1rpx #ccc;
+}
+.orderItem .orderItemNo, .orderItem .orderItemPrice, .orderItem .orderItemDate{
+    display: flex;
+    justify-content: space-between;
+}
+.orderItem .orderItemNo{
+    margin-bottom: 10rpx;
+}
+.orderItem .orderItemPrice .orderItemPriceNum{
+    font-size: 36rpx;
+    color: var(--themeColor);
+}

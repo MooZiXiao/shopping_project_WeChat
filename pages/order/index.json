@@ -2,5 +2,5 @@
   "usingComponents": {
     "goodsTab": "../../components/goodsTab/index"
   },
-  "navigationBarTitleText": "分类"
+  "navigationBarTitleText": "订单页面"
 }

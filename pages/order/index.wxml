@@ -1,14 +1,53 @@
 <!-- 自定义tab开始 -->
 <goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="handleTabChange"></goodsTab>
 <view class="tabContent">
-    <view wx:if="{{currentIndex === 0}}">
-        0
+    <view class="orderItemWrap" wx:if="{{currentIndex === 0}}">
+        <view class="orderItem" wx:for="{{allOrderData}}" wx:key="order_id">
+            <view class="orderItemNo">
+                <text>订单编号</text>
+                <text>{{item.order_number}}</text>
+            </view>
+            <view class="orderItemPrice">
+                <text>订单价格</text>
+                <text class="orderItemPriceNum">￥{{item.order_price}}</text>
+            </view>
+            <view class="orderItemDate">
+                <text>订单日期</text>
+                <text>{{item.create_time}}</text>
+            </view>
+        </view>
     </view>
     <view wx:elif="{{currentIndex === 1}}">
-        1
+        <view class="orderItem" wx:for="{{nonPayOrderData}}" wx:key="order_id">
+            <view class="orderItemNo">
+                <text>订单编号</text>
+                <text>{{item.order_number}}</text>
+            </view>
+            <view class="orderItemPrice">
+                <text>订单价格</text>
+                <text class="orderItemPriceNum">￥{{item.order_price}}</text>
+            </view>
+            <view class="orderItemDate">
+                <text>订单日期</text>
+                <text>{{item.create_time}}</text>
+            </view>
+        </view>
     </view>
     <view wx:elif="{{currentIndex === 2}}">
-        2
+        <view class="orderItem" wx:for="{{nonSendOrderData}}" wx:key="order_id">
+            <view class="orderItemNo">
+                <text>订单编号</text>
+                <text>{{item.order_number}}</text>
+            </view>
+            <view class="orderItemPrice">
+                <text>订单价格</text>
+                <text class="orderItemPriceNum">￥{{item.order_price}}</text>
+            </view>
+            <view class="orderItemDate">
+                <text>订单日期</text>
+                <text>{{item.create_time}}</text>
+            </view>
+        </view>
     </view>
     <view wx:else>
         3
