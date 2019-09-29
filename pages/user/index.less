@@ -1,0 +1,95 @@
+.userWrap {
+    background-color: #e4bdbd;
+    .userImgWrap {
+        height: 40vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        .userImg{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 40vh;
+            filter: blur(12rpx);
+        }
+        text{
+            color: #fff;
+            z-index: 1;
+        }
+        button{
+            width: 18vw;
+            height: 18vw;
+            border-radius: 50%;
+        }
+    }
+    
+    .userOthers{
+        position: relative;
+        margin: -40rpx 20rpx 0;
+        height: ~'calc(100vh - 40vh + 42rpx)';
+        .userNav {
+            display: flex;
+            margin-bottom: 10rpx;
+            background-color: #fff;
+            navigator{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                padding: 10rpx 0;
+                font-size: 24rpx;
+                text:nth-child(1){
+                    color: var(--themeColor)
+                }
+            }
+        }
+      
+        .userOrder {
+            background-color: #fff;
+            .userOrderTitle {
+                padding: 15rpx 0;
+                font-size: 24rpx;
+                text-indent: 20rpx;
+                border-bottom: solid 1rpx #e4bdbd;
+            }
+      
+            .userOrderItem {
+                display: flex;
+                navigator{
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: center;
+                    padding: 12rpx 0;
+                    font-size: 24rpx;
+                    text:nth-child(1){
+                        color: var(--themeColor)
+                    }
+                }
+            }
+        }
+      
+        .userAddress {
+            margin: 10rpx 0 20rpx;
+            padding: 15rpx 0;
+            background-color: #fff;
+            text-indent: 20rpx;
+            font-size: 24rpx;
+        }
+        .userContact, .userFeedBack, .aboutUs, .ToShare{
+            padding: 20rpx 0;
+            background-color: #fff;
+            text-indent: 20rpx;
+            font-size: 24rpx;
+            border-bottom: solid 1rpx #e4bdbd;
+        }
+        .ToShare{
+            margin-top: 20rpx;
+        }
+    }
+  }

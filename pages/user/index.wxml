@@ -1,2 +1,60 @@
-<!--pages/user/index.wxml-->
-<text>pages/user/index.wxml</text>
+<view class="userWrap">
+    <!-- 登录 -->
+    <view class="userImgWrap">
+        <image class="userImg" src=""></image>
+    <button style="background: url('http://img4.imgtn.bdimg.com/it/u=503942018,2982083750&fm=26&gp=0.jpg') no-repeat; background-size: 18vw 18vw;" open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo"></button>
+        <text class="userName">您未登录，请点击头像登录...</text>
+    </view>
+    <view class="userOthers">
+        <!-- 导航 -->
+        <view class="userNav">
+            <navigator class="collect">
+                <text>0</text>
+                <text>收藏的店铺</text>
+            </navigator>
+            <navigator url="/pages/collect/index" class="collect">
+                <text>0</text>
+                <text>收藏的商品</text>
+            </navigator>
+            <navigator class="collect">
+                <text>0</text>
+                <text>关注的商品</text>
+            </navigator>
+            <navigator class="collect">
+                <text>0</text>
+                <text>我的足迹</text>
+            </navigator>
+        </view>
+        <!-- 订单 -->
+        <view class="userOrder">
+            <view class="userOrderTitle">我的订单</view>
+            <view class="userOrderItem">
+                <navigator url="/pages/order/index">
+                    <text class="iconfont icon-ding_dan"></text>
+                    <text>全部订单</text>
+                </navigator>
+                <navigator url="/pages/order/index">
+                    <text class="iconfont icon-fukuantongzhi"></text>
+                    <text>待付款</text>
+                </navigator>
+                <navigator url="/pages/order/index">
+                    <text class="iconfont icon-receipt-address"></text>
+                    <text>待收货</text>
+                </navigator>
+                <navigator>
+                    <text class="iconfont icon-tuihuotuikuan_dianpu"></text>
+                    <text>退款/退货</text>
+                </navigator>
+            </view>
+        </view>
+        <!-- 收货地址管理 -->
+        <view class="userAddress">
+            收货地址管理
+        </view>
+        <view class="userContact">联系客服</view>
+        <view class="userFeedBack">意见反馈</view>
+        <view class="aboutUs">关于我们</view>
+        <view class="ToShare">把应用推荐给其他人</view>
+    </view>
+</view>
+  
