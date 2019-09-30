@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "goodsTab": "../../components/goodsTab/index"
+    "goodsTab": "../../components/goodsTab/index",
+    "uploadImg": "../../components/uploadImg/index"
   },
   "navigationBarTitleText": "用户反馈"
 }

@@ -1,0 +1,22 @@
+.uploadImg{
+    position: relative;
+    width: 90rpx;
+    height: 90rpx;
+}
+.uploadImg text{
+    position: absolute;
+    right: -12rpx;
+    top: -18rpx;
+    width: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    text-align: center;
+    background-color: var(--themeColor);
+    color: #fff;
+    border-radius: 50%;
+}
+.uploadImg image{
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 5rpx;
+}

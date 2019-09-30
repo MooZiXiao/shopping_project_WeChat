@@ -10,9 +10,16 @@
         <view class="questionContentWrap">
             <view class="questionContent">
                 <textarea placeholder="请描述一下您的问题..."></textarea>
+
+                <view class="questionUploadImgWrap">
+                    <button class="questionUploadImgBtn" bindtap="handleUploadImg">+</button>
+                    <view class="questionUploadImg" wx:for="{{chooseImages}}" wx:key='*this'>
+                        <uploadImg src="{{item}}"></uploadImg>
+                    </view>
+                </view>
             </view>
 
-            <button >提交</button>
+            <button type="primary">提交</button>
         </view>
     </view>
     <view wx:else>1</view>

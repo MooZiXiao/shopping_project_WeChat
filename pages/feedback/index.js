@@ -30,13 +30,31 @@ Page({
       }
     ],
     // 
-    currentIndex: 0
+    currentIndex: 0,
+    // 上传图片路径数据
+    chooseImages: []
   },
   /* tab事件 */
   getTabIndex(e){
     this.setData({
       currentIndex: e.detail.index
     })
+  },
+  /* 上传图片 */
+  handleUploadImg(){
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (result) => {
+        this.setData({
+          chooseImages: [...this.data.chooseImages,...result.tempFilePaths]
+        })
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    });
   },
   /**
    * 生命周期函数--监听页面加载

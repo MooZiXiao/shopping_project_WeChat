@@ -1,0 +1,4 @@
+<view class="uploadImg">
+    <image src="{{src}}"></image>
+    <text>x</text>
+</view>

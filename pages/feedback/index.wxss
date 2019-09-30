@@ -18,13 +18,37 @@
   margin-right: 0;
 }
 .tabContent .questionContentWrap .questionContent {
+  position: relative;
   margin: 40rpx 0 20rpx;
+  background-color: #fff;
 }
 .tabContent .questionContentWrap .questionContent textarea {
   width: calc(100vw - 70rpx);
-  height: 40vh;
+  height: 30vh;
   padding: 15rpx;
   background-color: #fff;
+}
+.tabContent .questionContentWrap .questionContent .questionUploadImgWrap {
+  padding: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.tabContent .questionContentWrap .questionContent .questionUploadImgWrap .questionUploadImgBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90rpx;
+  height: 90rpx;
+  font-size: 50rpx;
+  font-weight: 600;
+  color: #666;
+  margin-right: 20rpx;
+  margin-bottom: 15rpx;
+}
+.tabContent .questionContentWrap .questionContent .questionUploadImgWrap .questionUploadImg {
+  width: 90rpx;
+  height: 90rpx;
+  margin-right: 20rpx;
 }
 page {
   background-color: #f1f1f1;

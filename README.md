@@ -1610,3 +1610,49 @@ handleCancel(){
 
 ### 12 个人中心 ###
 
+#### 12.1 页面结构 ####
+
+#### 12.2 头像显示 ####
+
+### 13 用户反馈 ###
+
+#### 13.1 页面结构 ####
+
+#### 13.2 反馈图片选择 ####
+
+设置 图片选择 按钮，并且上传的图片显示区域在上传按钮后面，创建图片显示的组件（uploadImg），通过遍历 选择图片 数组，将每一项（item）传值传到 组件中（uploadImg）
+
+选择图片通过 wx.chooseImage() api
+
+```html
+<view class="questionContent">
+    <textarea placeholder="请描述一下您的问题..."></textarea>
+	// 按钮 + 图片显示区域
+    <view class="questionUploadImgWrap">
+        <button class="questionUploadImgBtn" bindtap="handleUploadImg">+</button>
+        <view class="questionUploadImg" wx:for="{{chooseImages}}" wx:key='*this'>
+            <uploadImg src="{{item}}"></uploadImg>
+        </view>
+    </view>
+</view>
+```
+
+```js
+// 选择图片按钮事件
+handleUploadImg(){
+    wx.chooseImage({
+        count: 9,
+        sizeType: ['original', 'compressed'],
+        sourceType: ['album', 'camera'],
+        success: (result) => {
+            this.setData({
+                chooseImages: [...this.data.chooseImages,...result.tempFilePaths]
+            })
+        },
+        fail: (err) => {
+            console.log(err)
+        }
+    });
+}
+```
+

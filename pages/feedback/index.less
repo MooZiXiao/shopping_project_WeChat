@@ -24,12 +24,36 @@
     }
     .questionContentWrap{
         .questionContent{
+            position: relative;
             margin: 40rpx 0 20rpx;
+            background-color: #fff;
             textarea{
                 width: ~'calc(100vw - 70rpx)';
-                height: 40vh;
+                height: 30vh;
                 padding: 15rpx;
                 background-color: #fff;
+            }
+            .questionUploadImgWrap{
+                padding: 20rpx;
+                display: flex;
+                flex-wrap: wrap;
+                .questionUploadImgBtn{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 90rpx;
+                    height: 90rpx;
+                    font-size: 50rpx;
+                    font-weight: 600;
+                    color: #666;
+                    margin-right: 20rpx;
+                    margin-bottom: 15rpx;
+                }
+                .questionUploadImg{
+                    width: 90rpx;
+                    height: 90rpx;
+                    margin-right: 20rpx;
+                }
             }
         }
     }
