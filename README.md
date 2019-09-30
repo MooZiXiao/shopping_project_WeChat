@@ -1646,6 +1646,7 @@ handleUploadImg(){
         sourceType: ['album', 'camera'],
         success: (result) => {
             this.setData({
+                // 图片数级拼接
                 chooseImages: [...this.data.chooseImages,...result.tempFilePaths]
             })
         },
@@ -1653,6 +1654,37 @@ handleUploadImg(){
             console.log(err)
         }
     });
+}
+```
+
+#### 13.3 移除对应反馈图片 ####
+
+设置 移除事件及要传入的索引，通过该事件获得对应的索引，获得选择图片数组，根据索引移除对应的图片，更新data中的图片数据
+
+```html
+<view class="questionUploadImgWrap">
+    <button class="questionUploadImgBtn" bindtap="handleUploadImg">+</button>
+    <view class="questionUploadImg" wx:for="{{chooseImages}}" wx:key='*this'
+          bindtap="handleDelImg"
+          data-index="{{index}}">
+        <uploadImg src="{{item}}" ></uploadImg>
+    </view>
+</view>
+```
+
+```js
+/* 移除图片 */
+handleDelImg(e){
+    // 获得索引
+    const {index} = e.currentTarget.dataset
+    // 获得选择的图片数组
+    let chooseImages = this.data.chooseImages
+    // 删除对应索引的图片
+    chooseImages.splice(index ,1)
+    // 重新赋值
+    this.setData({
+        chooseImages
+    })
 }
 ```
 

@@ -13,8 +13,10 @@
 
                 <view class="questionUploadImgWrap">
                     <button class="questionUploadImgBtn" bindtap="handleUploadImg">+</button>
-                    <view class="questionUploadImg" wx:for="{{chooseImages}}" wx:key='*this'>
-                        <uploadImg src="{{item}}"></uploadImg>
+                    <view class="questionUploadImg" wx:for="{{chooseImages}}" wx:key='*this'
+                    bindtap="handleDelImg"
+                    data-index="{{index}}">
+                        <uploadImg src="{{item}}" ></uploadImg>
                     </view>
                 </view>
             </view>

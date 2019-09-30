@@ -31,7 +31,7 @@ Page({
     ],
     // 
     currentIndex: 0,
-    // 上传图片路径数据
+    // 选择图片路径数据
     chooseImages: []
   },
   /* tab事件 */
@@ -40,7 +40,7 @@ Page({
       currentIndex: e.detail.index
     })
   },
-  /* 上传图片 */
+  /* 选择图片 */
   handleUploadImg(){
     wx.chooseImage({
       count: 9,
@@ -55,6 +55,20 @@ Page({
         console.log(err)
       }
     });
+  },
+  /* 移除图片 */
+  handleDelImg(e){
+    // console.log(e)
+    // 获得索引
+    const {index} = e.currentTarget.dataset
+    // 获得选择的图片数组
+    let chooseImages = this.data.chooseImages
+    // 删除对应索引的图片
+    chooseImages.splice(index ,1)
+    // 重新赋值
+    this.setData({
+      chooseImages
+    })
   },
   /**
    * 生命周期函数--监听页面加载
