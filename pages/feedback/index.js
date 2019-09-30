@@ -1,4 +1,6 @@
-// pages/feedback/index.js
+// 引入
+import regeneratorRuntime from '../../lib/runtime/runtime.js';
+import {request, showToast} from '../../request/index.js'
 Page({
 
   /**
@@ -32,8 +34,12 @@ Page({
     // 
     currentIndex: 0,
     // 选择图片路径数据
-    chooseImages: []
+    chooseImages: [],
+    // textarea 值
+    textareaVal: ''
   },
+  // 图片数组
+  uploadData: [],
   /* tab事件 */
   getTabIndex(e){
     this.setData({
@@ -69,6 +75,73 @@ Page({
     this.setData({
       chooseImages
     })
+  },
+  /* textarea  */
+  handleInput(e){
+    this.setData({
+      textareaVal: e.detail.value
+    })
+  },
+  /* 提交按钮事件 */
+  async handleSubmit(){
+    let {textareaVal, chooseImages} = this.data
+
+    // 非空判断
+    if(!textareaVal.trim()){
+      await showToast({title: '请输入您要反馈的内容', icon: 'none', mask: true})
+      return
+    }
+    // 显示正在等待的图片
+    wx.showLoading({
+      title: "正在上传中",
+      mask: true
+    });
+      
+    // 判断是否有图片
+    if(chooseImages.length > 0){
+      chooseImages.forEach((v, i) => {
+        wx.uploadFile({
+          url: 'https://images.ac.cn/Home/Index/UploadAction/',
+          filePath: v,
+          name: 'file',
+          formData: {},
+          success: (result) => {
+            // console.log(result)
+            let url = JSON.parse(result.data).url
+            this.uploadData.push(url)
+            // 所有图片上传完后触发  
+            if (i === chooseImages.length - 1) {
+              // 隐藏上传框
+              wx.hideLoading();
+
+              console.log("提交成功");
+              
+              // 提交成功后，重置页面
+              this.setData({
+                textareaVal: "",
+                chooseImages: []
+              })
+              // 返回上一个页面
+              wx.navigateBack({
+                delta: 1
+              });
+
+            }
+          },
+          fail: (err) => {
+            console.log(err)
+          }
+        });
+      })
+        
+    }else{
+      wx.hideLoading()
+      // 返回到上一页
+      wx.navigateBack({
+        delta: 1
+      });
+        
+    }
   },
   /**
    * 生命周期函数--监听页面加载

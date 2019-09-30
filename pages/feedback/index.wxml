@@ -9,7 +9,7 @@
         </view>
         <view class="questionContentWrap">
             <view class="questionContent">
-                <textarea placeholder="请描述一下您的问题..."></textarea>
+                <textarea value="{{textareaVal}}" placeholder="请描述一下您的问题..." bindinput="handleInput"></textarea>
 
                 <view class="questionUploadImgWrap">
                     <button class="questionUploadImgBtn" bindtap="handleUploadImg">+</button>
@@ -21,7 +21,7 @@
                 </view>
             </view>
 
-            <button type="primary">提交</button>
+            <button type="primary" bindtap="handleSubmit">提交</button>
         </view>
     </view>
     <view wx:else>1</view>
