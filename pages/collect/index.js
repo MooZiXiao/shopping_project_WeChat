@@ -5,62 +5,59 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    // tabTitle 
+    tabTitle: [
+      {
+        name: '商品收藏'
+      },
+      {
+        name: '品牌收藏'
+      },
+      {
+        name: '店铺收藏'
+      },
+      {
+        name: '浏览足迹'
+      }
+    ],
+    // 
+    currentIndex: 0,
+    // 内容tab
+    contentTab:[
+      { 
+        text: '全部'
+      },
+      {
+        text: '正在热卖'
+      },
+      {
+        text: '即将上线'
+      }
+    ],
+    contentIndex: 0,
+    // 收藏数据
+    collectData: []
   },
-
+  /* tab */
+  getTabIndex(e){
+    this.setData({
+      currentIndex: e.detail.index
+    })
+  },
+  /* 内容tab 事件 */
+  handleChangeIndex(e){
+    // console.log(e)
+    this.setData({
+      contentIndex: e.target.dataset.index
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    const collectData = wx.getStorageSync('collect') || []
+    this.setData({
+      collectData
+    })
   }
 })

@@ -1,2 +1,41 @@
-<!--pages/collect/index.wxml-->
-<text>pages/collect/index.wxml</text>
+<goodsTab tabTitle="{{tabTitle}}" currentIndex="{{currentIndex}}" bindgetTabIndex="getTabIndex"></goodsTab>
+<view class="tabContent">
+    <view wx:if="{{currentIndex === 0}}">
+        <view class="contentTitleWrap">
+            <view class="contentTitle {{contentIndex === index ? 'active' : ''}}" wx:for="{{contentTab}}" wx:key="*this" bindtap="handleChangeIndex" data-index="{{index}}">
+                {{item.text}}
+            </view>
+        </view>
+        <view class="contentItemWrap" wx:if="{{contentIndex === 0}}">
+            <navigator url="/pages/goods_detail/index?goods_id={{item.goods_id}}" class="contentItem" wx:for="{{collectData}}" wx:key="goods_id">
+                <view class="contentItemImage">
+                    <image class="" src="{{item.goods_small_logo}}" mode="widthFix"/>
+                </view>
+                <view class="contentItemInfo">
+                    <text class="contentItemInfoName">{{item.goods_name}}</text>
+                    <text class="contentItemInfoPrice">￥ {{item.goods_price}}</text>
+                </view>
+            </navigator>
+        </view>
+        <view class="contentItemWrap" wx:elif="{{contentIndex === 1}}">
+            <view class="contentItem">
+                
+            </view>
+        </view>
+        <view class="contentItemWrap" wx:else>
+            <view class="contentItem">
+                
+            </view>
+        </view>
+    </view>
+    <view wx:elif="{{currentIndex === 1}}">
+        1
+    </view>
+    <view wx:elif="{{currentIndex === 2}}">
+        2
+    </view>
+    <view wx:else>
+        3
+    </view>
+</view>
+  
